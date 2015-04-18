@@ -1,0 +1,20 @@
+/* ## Color management
+--------------------------------------------- */
+
+$white:         #fff;
+$white-genesis: #f5f5f5;
+$black-genesis: #333;
+$gray-genesis:  #999;
+$red-genesis:   #e5554e;
+
+$theme: (
+	"primary-white":     $white-genesis,
+	"secondary-white":   $white,
+	"primary-black":     $black-genesis,
+	"primary-gray":      $gray-genesis,
+	"primary-highlight": $red-genesis,
+);
+
+@function samovar-color($name) {
+	@return map-get($theme, $name);
+}

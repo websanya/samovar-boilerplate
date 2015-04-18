@@ -1,0 +1,17 @@
+/* ## Float Clearing
+--------------------------------------------- */
+
+@import "compass/utilities/general/clearfix";
+
+.author-box,
+.clearfix,
+.entry,
+.entry-content,
+.pagination,
+.site-container,
+.site-footer,
+.site-header,
+.site-inner,
+.wrap {
+	@include pie-clearfix;
+}

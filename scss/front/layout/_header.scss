@@ -1,0 +1,238 @@
+/* ## Header Container
+--------------------------------------------- */
+
+.site-header {
+	
+	@include rhythm-padding(3);
+	@include samovar-padding(2);
+	background-color: samovar-color("secondary-white");
+	
+	.samovar-fullscreen-header & {
+		background-color: transparent;
+		position: relative;
+		z-index: 100000;
+		&.scrolled {
+			background-color: samovar-color("secondary-white");
+		}
+	}
+		
+	&.scrolled {
+		@include breakpoint($kyle) {
+			
+			@include rhythm-padding();
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 10000;
+			
+			.admin-bar & {
+				top: 32px;
+			}
+			
+			.samovar-left-header-menu & + .site-inner,
+			.samovar-right-header-menu & + .site-inner {
+				@include margin-leader(14);
+			}
+			
+			.samovar-center-header-menu & + .site-inner {
+				@include margin-leader(18);
+			}
+			
+		}		
+	}
+	
+}
+
+/* ## Title Area
+--------------------------------------------- */
+
+.samovar-center-header-menu .site-header {
+	text-align: center;
+}
+
+.title-area {
+	
+	.samovar-left-header-menu & {
+		float: left;
+	}
+	
+	.samovar-center-header-menu & {
+		float: left;
+		@include breakpoint($kyle) {
+			float: none;
+		}
+		img {
+			margin: auto;
+		}
+	}
+	
+	.samovar-right-header-menu & {
+		float: right;
+		text-align: right;
+	}
+	
+	.site-logo {
+		img {
+			max-height: $base-line-height * 5;
+		}
+	}
+	
+	.site-logo + .site-title {
+		display: none;
+	}
+	
+	.site-logo + .site-title + .site-description {
+		display: none;
+	}
+	
+	.site-title {
+		
+		margin-bottom: 0;	
+		font-size: 1.5rem;
+		@include adjust-leading-to(2);
+		@include breakpoint($kyle) {
+			font-size: 1.875rem;
+			@include adjust-leading-to(3);
+		}
+		font-weight: 400;
+		
+		a {
+			color: samovar-color("primary-black");
+			&:hover {
+				color: samovar-color("primary-highlight") !important;
+			}
+		}
+		
+	}
+	
+	.site-description {
+		margin-bottom: 0;	
+		font-size: 0.75rem;
+		@include adjust-leading-to(2);
+		@include breakpoint($kyle) {
+			font-size: 1rem;
+		}
+		font-weight: 300;
+	}
+	
+}
+
+/* ## Header Menu
+--------------------------------------------- */
+
+.header-widget-area {
+	
+	display: none;
+	@include breakpoint($kyle) {
+		display: block;
+	}
+	
+	.samovar-always-mobile-header & {
+		display: none;
+	}
+	
+	.samovar-left-header-menu & {
+		float: right;
+		@include rhythm-padding(0.5);
+		.genesis-nav-menu > .menu-item:last-child a {
+			padding-right: 0;
+		}
+	}
+	
+	.samovar-center-header-menu & {
+		.genesis-nav-menu > .menu-item > a {
+			@include padding-leader(2);
+			padding-bottom: 0;
+		}
+	}
+	
+	.samovar-center-header-menu .scrolled & {
+		.genesis-nav-menu > .menu-item > a {
+			@include padding-leader();
+			padding-bottom: 0;
+		}
+	}
+	
+	.samovar-right-header-menu & {
+		float: left;
+		@include rhythm-padding(0.5);
+		.genesis-nav-menu > .menu-item:first-child a {
+			padding-left: 0;
+		}
+	}
+	
+}
+
+#trigger-overlay {
+	.samovar-left-header-menu & {
+		float: right;
+	}
+	.samovar-center-header-menu & {
+		float: right;
+	}
+	.samovar-right-header-menu & {
+		float: left;
+	}
+}
+
+/* ## Fullscreen Header
+--------------------------------------------- */
+
+.samovar-fullscreen-header {
+	.genesis-nav-menu > .menu-item > a {
+		color: samovar-color("secondary-white");
+	}
+	.scrolled .genesis-nav-menu > .menu-item > a {
+		color: samovar-color("primary-black");
+	}
+}
+
+.samovar-entry-fullscreen {
+	
+	background-size: cover;
+	position: absolute;
+	top: 0; bottom: 0; left: 0; right: 0;
+	
+	h1 {
+		margin: 22% auto 0;
+		max-width: 1200px;
+		position: relative;
+		z-index: 1000;
+		color: samovar-color("primary-white");
+		font-size: 2.5rem;
+		@include adjust-leading-to(4);
+		text-shadow: 1px 1px 0px samovar-color("primary-black");
+	}
+	
+	.entry-meta {
+		margin: 0 auto;
+		max-width: 1200px;
+		position: relative;
+		z-index: 1000;
+		color: samovar-color("primary-white");
+		font-size: 1.875rem;
+		@include adjust-leading-to(3);
+		text-shadow: 1px 1px 0px samovar-color("primary-black");
+	}
+	
+	h1, .entry-meta {
+		.samovar-fullscreen-header-left & {
+			text-align: left;
+		}
+		.samovar-fullscreen-header-center & {
+			text-align: center;
+		}
+		.samovar-fullscreen-header-right & {
+			text-align: right;
+		}	
+	}
+
+	.samovar-fullscreen-overlay {
+		background-color: samovar-color("primary-black");
+		position: absolute;
+		top: 0; bottom: 0; left: 0; right: 0;
+		z-index: 100;
+	}
+	
+}

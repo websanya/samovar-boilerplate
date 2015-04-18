@@ -1,0 +1,10 @@
+/**
+ * Stylesheet for admin pages.
+ *
+ * @package Samovar Boilerplate
+ * @author Alexander Goncharov (http://websanya.ru)
+ * @copyright Copyright (c) 2015, Alexander Goncharov
+ * @license GNU Public License (http://opensource.org/licenses/gpl-2.0.php)
+ */
+.admin-custom-css {
+  font-family: monospace; }

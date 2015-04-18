@@ -1,0 +1,43 @@
+/* ## Footer Container
+--------------------------------------------- */
+
+.site-footer {
+
+	@include rhythm-padding(2);
+	@include samovar-padding(2);
+	text-align: center;
+	@include breakpoint($kyle) {
+		text-align: left;
+	}
+	background-color: samovar-color("primary-white");
+	color: samovar-color("primary-black");
+
+	p {
+		margin-bottom: 0;
+	}
+
+}
+
+.footer-credits {
+	@include breakpoint($kyle) {
+		float: left;	
+	}
+}
+
+.footer-social {
+	@include breakpoint($kyle) {
+		float: right;	
+	}
+	a {
+		margin-right: 2px;
+		color: samovar-color("primary-black");
+		&:hover {
+			color: samovar-color("primary-highlight");
+		}
+		svg {
+			display: inline-block;
+			width: 18px;
+			height: 18px;
+		}
+	}
+}

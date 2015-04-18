@@ -1,0 +1,15 @@
+/* ### Contact Form 7 */
+
+.wpcf7-form {
+	p:last-of-type {
+		@include pie-clearfix;
+	}
+}
+.wpcf7-submit,
+.ajax-loader {
+	float: left;
+}
+.ajax-loader {
+	@include rhythm-margins();
+	margin-left: $base-line-height !important;
+}

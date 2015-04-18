@@ -1,0 +1,1 @@
+!function($){wp.customize("samovar_test_meta_setting",function(t){t.bind(function(t){""==t?$("#samovar-test-meta").hide():($("#samovar-test-meta").show(),$("#samovar-test-meta").text(t))})})}(jQuery);

@@ -1,0 +1,122 @@
+/* ## Entry
+--------------------------------------------- */
+
+.content .entry {
+	
+	background-color: samovar-color("secondary-white");
+	@include padding-leader(3);
+	@include samovar-padding(2);
+	
+	&:last-of-type {
+		@include padding-trailer(3);
+	}
+	
+	@include breakpoint($kyle) {
+		@include rhythm-padding(3);
+		@include samovar-padding(4);
+		@include margin-trailer(3);
+	}
+	
+	> p:last-child {
+		margin-bottom: 0;
+	}
+	
+}
+
+/* ## Entry Header
+--------------------------------------------- */
+
+.entry {
+	position: relative;
+}
+
+.entry-header .post-format {
+	position: absolute;
+	top: $base-line-height;
+	left: $base-line-height;
+}
+
+.entry-header .entry-meta {
+	@include margin-trailer(2);
+}
+
+.entry-comments-link::before {
+	content: "\2014";
+	margin: 0 6px 0 2px;
+}
+
+/* ## Entry Content
+--------------------------------------------- */
+
+.entry-content {
+	
+	p {
+		
+		&.iframe-container {
+			@include pie-clearfix;
+		}
+		
+		iframe {
+			float: left;
+		}
+		
+	}
+	
+	ul, ol, dl {
+		
+		@include margin-trailer(2);
+		margin-left: $base-line-height * 2;
+		
+		ol, ul, dl {
+			margin-bottom: 0;
+		}
+		
+	}
+	
+	ol > li {
+		list-style-type: decimal;
+	}
+	
+	ul > li {
+		list-style-type: disc;
+	}
+	
+}
+
+.post-image {
+	margin: auto;
+	@include margin-trailer(2);
+}
+
+/* ## Entry Footer
+--------------------------------------------- */
+
+.entry-footer .entry-meta {
+	margin-bottom: 0;
+	@include apply-side-rhythm-border(top, $lines: 2);
+}
+
+.entry-categories,
+.entry-tags {
+	display: block;
+}
+
+/* ## Sticky post styles
+--------------------------------------------- */
+
+.content .sticky {
+	
+	@include padding-trailer(3);
+	
+	background-color: samovar-color("primary-black") !important;
+	color: samovar-color("primary-white");
+	
+	a:hover {
+		color: samovar-color("primary-white");
+	}
+	
+	.entry-title::before {
+		content: "Featured: ";
+	}
+	
+}
