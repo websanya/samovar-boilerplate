@@ -12,29 +12,43 @@
 add_action('admin_bar_menu', 'samovar_add_toolbar_items', 100);
 function samovar_add_toolbar_items($admin_bar) {
   $admin_bar->add_menu( array(
-      'id'    => 'genesis',
+    'id'    => 'samovar-boilerplate',
+    'title' => 'Samovar Boilerplate',
+//     'href'  => admin_url( 'admin.php?page=genesis' ),
+    'meta'  => array(
       'title' => 'Genesis',
-      'href'  => home_url() . '/wp-admin/admin.php?page=genesis',
-      'meta'  => array(
-          'title' => 'Genesis',            
-      ),
+    ),
   ));
   $admin_bar->add_menu( array(
-      'id'    => 'genesis-main',
-      'parent' => 'genesis',
-      'title' => 'Theme Settings',
-      'href'  => home_url() . '/wp-admin/admin.php?page=genesis',
-      'meta'  => array(
-          'title' => 'Theme Settings',
-      ),
+    'id'     => 'genesis-main',
+    'parent' => 'samovar-boilerplate',
+    'title'  => 'Genesis Settings',
+    'href'   => admin_url( 'admin.php?page=genesis' ),
+    'meta'   => array(
+      'title' => 'Genesis Settings',
+    ),
   ));
   $admin_bar->add_menu( array(
-      'id'    => 'samovar-main',
-      'parent' => 'genesis',
+    'id'     => 'samovar-main',
+    'parent' => 'samovar-boilerplate',
+    'title'  => 'Samovar Settings',
+    'href'   => admin_url( 'admin.php?page=samovar_main' ),
+    'meta'   => array(
       'title' => 'Samovar Settings',
-      'href'  => home_url() . '/wp-admin/admin.php?page=samovar_main',
-      'meta'  => array(
-          'title' => 'Theme Settings',
-      ),
+    ),
   ));
+  foreach ( TGM_Plugin_Activation::$instance->plugins as $plugin ) {
+	  if ( ! is_plugin_active( $plugin['file_path'] ) ) {
+		  $admin_bar->add_menu( array(
+		    'id'     => 'tgmpa-install-plugins',
+		    'parent' => 'samovar-boilerplate',
+		    'title'  => 'Install Required Plugins',
+		    'href'   => admin_url( 'themes.php?page=tgmpa-install-plugins' ),
+		    'meta'   => array(
+		      'title' => 'Install Required Plugins',
+		    ),
+		  ));
+		  break;
+	  }
+  }
 }

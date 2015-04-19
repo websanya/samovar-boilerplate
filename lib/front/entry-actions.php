@@ -34,14 +34,17 @@ function custom_author_box_title() {
 	if ( get_the_author_meta( 'user_url' ) ) {
 		$title .= '<li class="author-box-social-website"><a href="' . get_the_author_meta( 'user_url' ) . '"></a></li>';
 	}
-	if ( get_the_author_meta( 'googleplus' ) ) {
-		$title .= '<li class="author-box-social-google"><a href="' . get_the_author_meta( 'googleplus' ) . '"></a></li>';
+	if ( get_the_author_meta( 'samovar_gplus' ) ) {
+		$title .= '<li class="author-box-social-google"><a href="' . get_the_author_meta( 'samovar_gplus' ) . '"></a></li>';
 	}
-	if ( get_the_author_meta( 'twitter' ) ) {
-		$title .= '<li class="author-box-social-twitter"><a href="http://twitter.com/' . get_the_author_meta( 'twitter' ) . '"></a></li>';
+	if ( get_the_author_meta( 'samovar_twitter' ) ) {
+		$title .= '<li class="author-box-social-twitter"><a href="' . esc_url( get_the_author_meta( 'samovar_twitter' ) ) . '"></a></li>';
 	}
-	if ( get_the_author_meta( 'facebook' ) ) {
-		$title .= '<li class="author-box-social-facebook"><a href="' . get_the_author_meta( 'facebook' ) . '"></a></li>';
+	if ( get_the_author_meta( 'samovar_facebook' ) ) {
+		$title .= '<li class="author-box-social-facebook"><a href="' . esc_url( get_the_author_meta( 'samovar_facebook' ) ) . '"></a></li>';
+	}
+	if ( get_the_author_meta( 'samovar_vk' ) ) {
+		$title .= '<li class="author-box-social-vk"><a href="' . esc_url( get_the_author_meta( 'samovar_vk' ) ) . '"></a></li>';
 	}
 	$title .= '</ul>';
 	return $title;

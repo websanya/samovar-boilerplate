@@ -13,6 +13,8 @@ require_once( get_template_directory() . '/lib/init.php' );
 
 //* Helper functions
 require_once( CHILD_DIR . '/lib/_helpers/helper-functions.php' );
+//* TGM_Plugin_Activation class.
+require_once( CHILD_DIR . '/lib/_helpers/tgm-plugin-activation/tgm-plugin-activation.php' );
 
 //* Child theme constants.
 samovar_define( 'CHILD_THEME_NAME', 'Samovar Boilerplate' );
@@ -29,6 +31,10 @@ samovar_back_require( 'admin-menu-bar.php' );
 samovar_back_require( 'metaboxes-post/samovar-post-settings.php' );
 //* Enqueue Admin scripts.
 samovar_back_require( 'admin-scripts.php' );
+//* Add Some User Settings.
+samovar_back_require( 'user-settings.php' );
+//* Recommend certain plugins.
+samovar_back_require( 'recommend-plugins.php' );
 
 //* Activate Theme Supports Features.
 samovar_front_require( 'theme-supports-features.php' );
