@@ -68,8 +68,10 @@ class Samovar_Theme_Settings extends Genesis_Admin_Boxes {
 			'footer_foursquare'    => '',
 			'footer_rss'           => '',
 						
-			'favicon'              => '',
-			'touch_icon'           => '',
+			'fonts_google'         => '',
+			'fonts_typekit'        => '',
+			
+			'custom_css_markup'    => '',
 		);
 		
 		//* Create the Admin Page.
@@ -144,6 +146,7 @@ class Samovar_Theme_Settings extends Genesis_Admin_Boxes {
 	 */
 	function metaboxes() {
 		add_meta_box( 'header-information', 'Header Settings', array( $this, 'header_information_markup' ), $this->pagehook, 'main', 'high' );
+		add_meta_box( 'share-information', 'Share Block Settings', array( $this, 'share_information_markup' ), $this->pagehook, 'main', 'high' );
 		add_meta_box( 'footer-information', 'Footer Settings', array( $this, 'footer_information_markup' ), $this->pagehook, 'main', 'high' );
 		add_meta_box( 'meta-information', 'Meta Settings', array( $this, 'meta_information_markup' ), $this->pagehook, 'main', 'high' );
 		add_meta_box( 'fonts-information', 'Fonts Settings', array( $this, 'fonts_information_markup' ), $this->pagehook, 'main', 'high' );
@@ -168,6 +171,34 @@ class Samovar_Theme_Settings extends Genesis_Admin_Boxes {
 		</p>
 		<p>
 			<label for="<?php $this->field_id( 'always_mobile_header' ); ?>"><?php _e( 'Always Mobile Header: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'always_mobile_header' ); ?>" id="<?php $this->field_id( 'always_mobile_header' ); ?>" value="1"<?php checked( $this->get_field_value( 'always_mobile_header' ) ); ?> /></label>
+		</p>
+		<?php
+	}
+	
+	//* Callback for Share Block Information metabox.
+	function share_information_markup() {
+		?>
+		<p><?php _e( 'Share Block Theme:', 'samovar' ); ?>
+			<select name="<?php $this->field_name( 'share_theme' ); ?>">
+				<option value="light"<?php selected( $this->get_field_value( 'share_theme' ), 'light' ); ?>><?php _e( 'Light', 'samovar' ); ?></option>
+				<option value="dark"<?php selected( $this->get_field_value( 'share_theme' ), 'dark' ); ?>><?php _e( 'Dark', 'samovar' ); ?></option>
+				<option value="counter"<?php selected( $this->get_field_value( 'share_theme' ), 'counter' ); ?>><?php _e( 'Counter', 'samovar' ); ?></option>
+			</select>
+		</p>
+		<p><?php _e( 'Share Block Layout:', 'samovar' ); ?>
+			<select name="<?php $this->field_name( 'share_layout' ); ?>">
+				<option value="button"<?php selected( $this->get_field_value( 'share_layout' ), 'button' ); ?>><?php _e( 'Button', 'samovar' ); ?></option>
+				<option value="link"<?php selected( $this->get_field_value( 'share_layout' ), 'link' ); ?>><?php _e( 'Link', 'samovar' ); ?></option>
+				<option value="icon"<?php selected( $this->get_field_value( 'share_layout' ), 'icon' ); ?>><?php _e( 'Icon', 'samovar' ); ?></option>
+				<option value="none"<?php selected( $this->get_field_value( 'share_layout' ), 'none' ); ?>><?php _e( 'None', 'samovar' ); ?></option>
+			</select>
+		</p>
+		<p>
+			<label for="<?php $this->field_id( 'share_vk' ); ?>"><?php _e( 'VKontakte: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_vk' ); ?>" id="<?php $this->field_id( 'share_vk' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_vk' ) ); ?> /></label>
+			<label for="<?php $this->field_id( 'share_facebook' ); ?>"><?php _e( 'Facebook: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_facebook' ); ?>" id="<?php $this->field_id( 'share_facebook' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_facebook' ) ); ?> /></label>
+			<label for="<?php $this->field_id( 'share_twitter' ); ?>"><?php _e( 'Twitter: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_twitter' ); ?>" id="<?php $this->field_id( 'share_twitter' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_twitter' ) ); ?> /></label>
+			<label for="<?php $this->field_id( 'share_gplus' ); ?>"><?php _e( 'Google+: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_gplus' ); ?>" id="<?php $this->field_id( 'share_gplus' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_gplus' ) ); ?> /></label>
+			<label for="<?php $this->field_id( 'share_lj' ); ?>"><?php _e( 'LiveJournal: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_lj' ); ?>" id="<?php $this->field_id( 'share_lj' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_lj' ) ); ?> /></label>
 		</p>
 		<?php
 	}

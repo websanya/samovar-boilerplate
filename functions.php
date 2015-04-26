@@ -14,7 +14,7 @@ require_once( get_template_directory() . '/lib/init.php' );
 //* Helper functions
 require_once( CHILD_DIR . '/lib/_helpers/helper-functions.php' );
 //* TGM_Plugin_Activation class.
-require_once( CHILD_DIR . '/lib/_helpers/tgm-plugin-activation/tgm-plugin-activation.php' );
+require_once( CHILD_DIR . '/lib/_helpers/tgm-plugin-activation/class-tgm-plugin-activation.php' );
 
 //* Child theme constants.
 samovar_define( 'CHILD_THEME_NAME', 'Samovar Boilerplate' );
