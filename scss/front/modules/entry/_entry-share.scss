@@ -1,0 +1,23 @@
+/* ### Yandex share piece */
+
+//* Basic styles.
+.entry-share {
+	@include samovar-trailer();
+	text-align: center;
+	@include pie-clearfix;
+}
+
+//* Some deep shit for vertical rhythm.
+span.b-share {
+	.simplefavorite-button + .entry-share & {
+		float: left;
+		padding: 1px 3px 1px 4px !important;
+		margin: 1px 0;
+	}
+	padding: 0 !important;
+	vertical-align: top;
+	@include transform(translateY(-2px));
+	a:hover {
+		border: none;
+	}
+}

@@ -13,6 +13,10 @@ if ( genesis_get_option( 'content_archive_thumbnail' ) ) {
 	remove_action( 'genesis_entry_content', 'genesis_do_post_image', 8 );
 	add_action( 'genesis_entry_header', 'samovar_do_post_image', 8 );
 	function samovar_do_post_image() {
+		if ( get_post_format() == 'video' ) {
+			return;	
+		}
+		
 		$img = genesis_get_image( array(
 			'format'  => 'html',
 			'size'    => genesis_get_option( 'image_size' ),
@@ -23,7 +27,7 @@ if ( genesis_get_option( 'content_archive_thumbnail' ) ) {
 		if ( ! empty( $img ) && get_post_format() != 'image' ) {
 			printf( '<a href="%s" title="%s">%s</a>', get_permalink(), the_title_attribute( 'echo=0' ), $img );	
 		}
-	}
+	}	
 }
 
 //* Customize the author box title.
@@ -50,22 +54,30 @@ function custom_author_box_title() {
 	return $title;
 }
 
-//* Add post format icons for posts.
-add_action( 'genesis_entry_header', 'samovar_post_formats', 5 );
-function samovar_post_formats() {
-	if ( has_post_format( 'aside' ) ) {
-	  echo '<span class="post-format dashicons dashicons-format-aside"></span>';
-	} elseif ( has_post_format( 'link' ) ) {
-	  echo '<span class="post-format dashicons dashicons-admin-links"></span>';
-	} elseif ( has_post_format( 'image' ) ) {
-	  echo '<span class="post-format dashicons dashicons-format-image"></span>';
-	} elseif ( has_post_format( 'quote' ) ) {
-	  echo '<span class="post-format dashicons dashicons-format-quote"></span>';
-	} elseif ( has_post_format( 'video' ) ) {
-	  echo '<span class="post-format dashicons dashicons-format-video"></span>';
-	} elseif ( has_post_format( 'audio' ) ) {
-	  echo '<span class="post-format dashicons dashicons-format-audio"></span>';
-	} else {
-		echo '<span class="post-format dashicons dashicons-admin-post"></span>';
+//* Add Favorites Button if plugin activated.
+if ( function_exists( 'the_favorites_button' ) ) {
+	add_action( 'genesis_entry_footer', 'samovar_favorite_button_markup', 5 );
+	function samovar_favorite_button_markup() {
+		the_favorites_button();
 	}
+}
+
+//* Add Progress Bar on single pages and posts.
+add_action( 'genesis_before_header', 'samovar_progress_bar_markup' );
+function samovar_progress_bar_markup() {
+	if ( is_singular() ) {
+		echo '<progress class="reading-progress" value="0"></progress>';	
+	}
+}
+
+//* Remove comments link from all the posts
+add_filter( 'genesis_post_comments_shortcode', 'samovar_remove_comments_link' );
+function samovar_remove_comments_link() {
+	return;
+}
+
+//* Add Scroll to Top button.
+add_action( 'genesis_after', 'samovar_scroll_top_button_markup' );
+function samovar_scroll_top_button_markup() {
+	echo '<div class="scroll-top-button"></div>';
 }

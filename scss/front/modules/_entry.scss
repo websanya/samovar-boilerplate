@@ -3,120 +3,114 @@
 
 .content .entry {
 	
-	background-color: samovar-color("secondary-white");
-	@include padding-leader(3);
-	@include samovar-padding(2);
+	//* Basic stuff for positioning etc.
+	position: relative;
+	@include samovar-all-paddings();
+	@include samovar-trailer();
 	
-	&:last-of-type {
-		@include padding-trailer(3);
-	}
-	
-	@include breakpoint($kyle) {
-		@include rhythm-padding(3);
-		@include samovar-padding(4);
-		@include margin-trailer(3);
-	}
-	
+	//* Last paragraph shouldn't have a bottom margin.
 	> p:last-child {
 		margin-bottom: 0;
 	}
 	
-}
-
-/* ## Entry Header
---------------------------------------------- */
-
-.entry {
-	position: relative;
-}
-
-.entry-header .post-format {
-	position: absolute;
-	top: $base-line-height;
-	left: $base-line-height;
-}
-
-.entry-header .entry-meta {
-	@include margin-trailer(2);
-}
-
-.entry-comments-link::before {
-	content: "\2014";
-	margin: 0 6px 0 2px;
-}
-
-/* ## Entry Content
---------------------------------------------- */
-
-.entry-content {
-	
-	p {
-		
-		&.iframe-container {
-			@include pie-clearfix;
-		}
-		
-		iframe {
-			float: left;
-		}
-		
+	//* Add some shadows and background.
+	body.samovar-boxed-layout & {
+		@include samovar-smallbox();
+		@include samovar-normalbox();
 	}
 	
+	/* ### Entry Header */
+	
+	//* The entry title.
+	.entry-title {
+		margin-bottom: 0;
+		@include breakpoint($kyle) {
+			@include margin-trailer();
+		}
+	}
+	//* The entry-header-meta gets some margin.
+	.entry-header .entry-meta {
+		@include samovar-trailer();
+	}
+	
+	/* ### Entry Content */
+	
+	//* Some basic tags.
 	ul, ol, dl {
-		
-		@include margin-trailer(2);
+		@include samovar-trailer();
 		margin-left: $base-line-height * 2;
-		
+		@include breakpoint($kyle) {
+			margin-left: $base-line-height * 3;
+		}
 		ol, ul, dl {
 			margin-bottom: 0;
 		}
-		
 	}
-	
 	ol > li {
 		list-style-type: decimal;
 	}
-	
 	ul > li {
 		list-style-type: disc;
 	}
 	
-}
-
-.post-image {
-	margin: auto;
-	@include margin-trailer(2);
-}
-
-/* ## Entry Footer
---------------------------------------------- */
-
-.entry-footer .entry-meta {
-	margin-bottom: 0;
-	@include apply-side-rhythm-border(top, $lines: 2);
-}
-
-.entry-categories,
-.entry-tags {
-	display: block;
-}
-
-/* ## Sticky post styles
---------------------------------------------- */
-
-.content .sticky {
-	
-	@include padding-trailer(3);
-	
-	background-color: samovar-color("primary-black") !important;
-	color: samovar-color("primary-white");
-	
-	a:hover {
-		color: samovar-color("primary-white");
+	//* Featured image.
+	.post-image {
+		margin: auto;
+		@include samovar-trailer();
 	}
 	
-	.entry-title::before {
-		content: "Featured: ";
+	/* ### Entry Footer */
+	
+	.entry-footer .entry-meta {
+		margin-bottom: 0;
+		@include apply-side-rhythm-border(top, $width: 3px, $lines: 1);
+		@include breakpoint($kyle) {
+			@include apply-side-rhythm-border(top, $width: 3px, $lines: 2);	
+		}
+		
+		//* "Pill" styles for tags and categories.
+		.entry-tags, .entry-categories {
+			display: block;
+			a {
+				@include samovar-highlight("bg");
+				color: samovar-color("primary-white");
+				display: inline-block;
+				font-size: 0.7rem;
+				@include breakpoint($kenny) {
+					font-size: 0.85rem;
+				}
+				font-weight: 400;
+				@include adjust-leading-to(1);
+				padding: 4px 6px;
+				@include transform( translateY(-1px) );
+				border-radius: 3px;
+				&:hover {
+					background-color: samovar-color("secondary-black") !important;
+					border: none;
+				}
+			}
+		}
+		.entry-tags a {
+			&:before {
+				content: "# ";
+			}
+		}
+		
+	}
+	
+	//* Styles for sticky post.
+	&.sticky {
+		@include horizontal-borders($width: 3px, $lines: 1);
+		@include breakpoint($kyle) {
+			@include horizontal-borders($width: 3px, $lines: 2);	
+		}
+		border-left: 3px solid;
+		border-right: 3px solid;
+		@include samovar-highlight("border");
 	}
 	
 }
+
+@import "entry/entry-share";
+@import "entry/entry-favorites";
+@import "entry/entry-post-formats";

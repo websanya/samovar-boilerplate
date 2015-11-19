@@ -1,0 +1,29 @@
+/* ### Sticky Header */
+
+.samovar-sticky-header .site-header {
+	//* Basic styles for scrolled header.
+	@include breakpoint($kenny) {
+		position: fixed !important;
+		top: 0; left: 0; right: 0;
+		z-index: 10000;
+		@include single-transition(padding, 0.3s, ease-in-out);
+		//* Shadow.
+		box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+		&.scrolled {
+			@include rhythm-padding();
+		}
+		//* Add some top margin for inner container when scrolled.
+		& + .site-inner {
+			@include margin-leader(11);
+		}
+	}
+}
+
+body.samovar-boxed-layout.samovar-sticky-header .site-header + .site-inner {
+	@include margin-leader(12);
+}
+
+//* Add some absolute top positioning for logged in users.
+.admin-bar.samovar-sticky-header .site-header {
+	top: 32px;
+}

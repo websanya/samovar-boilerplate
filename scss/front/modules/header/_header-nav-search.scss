@@ -1,0 +1,77 @@
+/* ### Header Search Icon */
+
+.samovar-header-search {
+	//* Search icon goes to the right by default.
+	.samovar-left-header-menu & {
+		float: right;
+		margin-left: $base-line-height;
+		@include breakpoint($kyle) {
+			margin-left: $base-line-height * 2;
+		}
+	}
+	//* Search icon goes to the left for right-aligned header.
+	.samovar-right-header-menu & {
+		float: left;
+		margin-right: $base-line-height;
+		@include breakpoint($kyle) {
+			margin-right: $base-line-height * 2;
+		}
+	}
+	//* Some other basic styles for the icon 'n shit.
+	font-size: 1rem;
+	@include adjust-leading-to(2);
+	cursor: pointer;
+	@include rhythm-margins(1);
+	@include breakpoint($kyle) {
+		@include rhythm-margins(1.5);
+	}
+	@include samovar-highlight("color-hover");
+}
+
+/* ### Header Search Overlay */
+
+.overlay-search form {
+		
+	position: relative;
+	top: 40%;
+	
+	//* Some weird styling magic over here.
+	input[type="search"] {
+		padding: 0;
+		margin: auto;
+		width: 60%;	
+		-webkit-appearance: none;
+	 
+		background-color: transparent;
+		color: samovar-color("primary-white");
+		border: none;
+		border-bottom: 2px solid samovar-color("primary-white");
+		border-radius: 0;
+		font-weight: 400;
+		@include breakpoint($kyle) {
+			font-size: 2.175rem;
+			@include adjust-leading-to(4);	
+		}
+		
+		//* Styling placeholder.
+		&::-webkit-input-placeholder { /* WebKit browsers */
+	    color: samovar-color("primary-white");
+		}
+		&:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+			color: samovar-color("primary-white");
+			opacity: 1;
+		}
+		&::-moz-placeholder { /* Mozilla Firefox 19+ */
+	  	color: samovar-color("primary-white");
+	  	opacity: 1;
+		}
+		&:-ms-input-placeholder { /* Internet Explorer 10+ */
+			color: samovar-color("primary-white");
+		}
+	}
+	
+	input[type="submit"] {
+		display: none;
+	}
+
+}

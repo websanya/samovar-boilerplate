@@ -1,238 +1,97 @@
 /* ## Header Container
 --------------------------------------------- */
 
+/* ### Header itself */
+
 .site-header {
 	
-	@include rhythm-padding(3);
-	@include samovar-padding(2);
-	background-color: samovar-color("secondary-white");
+	//* Some paddings and margins.
+	@include samovar-all-paddings();
+	@include samovar-trailer();
 	
-	.samovar-fullscreen-header & {
-		background-color: transparent;
-		position: relative;
-		z-index: 100000;
-		&.scrolled {
-			background-color: samovar-color("secondary-white");
+	//* Header Color Schemes.
+	body.samovar-dark-header-color-scheme & {
+		@include samovar-normalbox("dark");
+		font-weight: 400;
+		a {
+			color: samovar-color("primary-white");
+		}
+		#menu-trigger-overlay path {
+			fill: samovar-color("primary-white");
+		}
+		.sub-menu a {
+			background-color: samovar-color("primary-black");
 		}
 	}
-		
-	&.scrolled {
-		@include breakpoint($kyle) {
-			
-			@include rhythm-padding();
-			position: fixed;
-			top: 0;
-			left: 0;
-			right: 0;
-			z-index: 10000;
-			
-			.admin-bar & {
-				top: 32px;
-			}
-			
-			.samovar-left-header-menu & + .site-inner,
-			.samovar-right-header-menu & + .site-inner {
-				@include margin-leader(14);
-			}
-			
-			.samovar-center-header-menu & + .site-inner {
-				@include margin-leader(18);
-			}
-			
-		}		
+	body.samovar-light-header-color-scheme & {
+		@include samovar-normalbox();
+		a {
+			color: samovar-color("primary-black");
+		}
+		#menu-trigger-overlay path {
+			fill: samovar-color("primary-black");
+		}
+		.sub-menu a {
+			background-color: samovar-color("primary-white")
+		}
 	}
 	
 }
 
-/* ## Title Area
---------------------------------------------- */
-
-.samovar-center-header-menu .site-header {
-	text-align: center;
-}
+/* ### Title Area */
 
 .title-area {
 	
+	//* Left goes to the left.
 	.samovar-left-header-menu & {
 		float: left;
 	}
-	
-	.samovar-center-header-menu & {
-		float: left;
-		@include breakpoint($kyle) {
-			float: none;
-		}
-		img {
-			margin: auto;
-		}
-	}
-	
+	//* Right goes to the right.
 	.samovar-right-header-menu & {
 		float: right;
 		text-align: right;
 	}
-	
+	//* Make the logo responsive and remove headings.
 	.site-logo {
 		img {
-			max-height: $base-line-height * 5;
+			max-height: $base-line-height * 4;
+			@include breakpoint($kyle) {
+				max-height: $base-line-height * 5;
+			}
+		}
+		& + .site-title {
+			display: none;
+			& + .site-description {
+				display: none;
+			}
 		}
 	}
 	
-	.site-logo + .site-title {
-		display: none;
-	}
-	
-	.site-logo + .site-title + .site-description {
-		display: none;
-	}
-	
+	//* Da Title.
 	.site-title {
-		
 		margin-bottom: 0;	
-		font-size: 1.5rem;
+		font-size: 1.25rem;
 		@include adjust-leading-to(2);
-		@include breakpoint($kyle) {
-			font-size: 1.875rem;
+		@include breakpoint($kenny) {
+			font-size: 1.575rem;
 			@include adjust-leading-to(3);
 		}
 		font-weight: 400;
-		
 		a {
-			color: samovar-color("primary-black");
-			&:hover {
-				color: samovar-color("primary-highlight") !important;
-			}
+			@include samovar-highlight("color-hover");
 		}
-		
+		a:hover {
+			border: none;
+		}
 	}
-	
+	//* La Description.
 	.site-description {
-		margin-bottom: 0;	
-		font-size: 0.75rem;
-		@include adjust-leading-to(2);
-		@include breakpoint($kyle) {
-			font-size: 1rem;
-		}
-		font-weight: 300;
+		margin-bottom: 0;
 	}
 	
 }
 
-/* ## Header Menu
---------------------------------------------- */
-
-.header-widget-area {
-	
-	display: none;
-	@include breakpoint($kyle) {
-		display: block;
-	}
-	
-	.samovar-always-mobile-header & {
-		display: none;
-	}
-	
-	.samovar-left-header-menu & {
-		float: right;
-		@include rhythm-padding(0.5);
-		.genesis-nav-menu > .menu-item:last-child a {
-			padding-right: 0;
-		}
-	}
-	
-	.samovar-center-header-menu & {
-		.genesis-nav-menu > .menu-item > a {
-			@include padding-leader(2);
-			padding-bottom: 0;
-		}
-	}
-	
-	.samovar-center-header-menu .scrolled & {
-		.genesis-nav-menu > .menu-item > a {
-			@include padding-leader();
-			padding-bottom: 0;
-		}
-	}
-	
-	.samovar-right-header-menu & {
-		float: left;
-		@include rhythm-padding(0.5);
-		.genesis-nav-menu > .menu-item:first-child a {
-			padding-left: 0;
-		}
-	}
-	
-}
-
-#trigger-overlay {
-	.samovar-left-header-menu & {
-		float: right;
-	}
-	.samovar-center-header-menu & {
-		float: right;
-	}
-	.samovar-right-header-menu & {
-		float: left;
-	}
-}
-
-/* ## Fullscreen Header
---------------------------------------------- */
-
-.samovar-fullscreen-header {
-	.genesis-nav-menu > .menu-item > a {
-		color: samovar-color("secondary-white");
-	}
-	.scrolled .genesis-nav-menu > .menu-item > a {
-		color: samovar-color("primary-black");
-	}
-}
-
-.samovar-entry-fullscreen {
-	
-	background-size: cover;
-	position: absolute;
-	top: 0; bottom: 0; left: 0; right: 0;
-	
-	h1 {
-		margin: 22% auto 0;
-		max-width: 1200px;
-		position: relative;
-		z-index: 1000;
-		color: samovar-color("primary-white");
-		font-size: 2.5rem;
-		@include adjust-leading-to(4);
-		text-shadow: 1px 1px 0px samovar-color("primary-black");
-	}
-	
-	.entry-meta {
-		margin: 0 auto;
-		max-width: 1200px;
-		position: relative;
-		z-index: 1000;
-		color: samovar-color("primary-white");
-		font-size: 1.875rem;
-		@include adjust-leading-to(3);
-		text-shadow: 1px 1px 0px samovar-color("primary-black");
-	}
-	
-	h1, .entry-meta {
-		.samovar-fullscreen-header-left & {
-			text-align: left;
-		}
-		.samovar-fullscreen-header-center & {
-			text-align: center;
-		}
-		.samovar-fullscreen-header-right & {
-			text-align: right;
-		}	
-	}
-
-	.samovar-fullscreen-overlay {
-		background-color: samovar-color("primary-black");
-		position: absolute;
-		top: 0; bottom: 0; left: 0; right: 0;
-		z-index: 100;
-	}
-	
-}
+@import "../modules/header/header-nav";
+@import "../modules/header/header-sticky";
+@import "../modules/header/header-progress";
+@import "../modules/header/header-fullscreen";

@@ -1,0 +1,91 @@
+/* ### Header Navigation Container */
+
+.nav-header {
+	@include samovar-block();
+	//* Remove if "always mobile header" option is active.
+	.samovar-always-mobile-header & {
+		display: none;
+	}
+	//* Styles for right-aligned menu.
+	.samovar-left-header-menu & {
+		float: right;
+		@include rhythm-padding(0.5);
+		.genesis-nav-menu > .menu-item:last-child a {
+			padding-right: 0;
+		}
+	}
+	//* Styles for left-aligned menu.
+	.samovar-right-header-menu & {
+		float: left;
+		@include rhythm-padding(0.5);
+		.genesis-nav-menu > .menu-item:first-child a {
+			padding-left: 0;
+		}
+	}
+}
+
+/* ### Header Navigation Menu Itself */
+
+.genesis-nav-menu {
+	//* Clear floats 'n shit.
+	clear: both;
+	width: 100%;
+	.menu-item {
+		//* Some basic styles for item containers.
+		display: inline-block;
+		text-align: left;
+		//* Hover styles for submenus. They are transitioning up and down. With some opacity change.
+		&:hover > .sub-menu {
+			@include single-transition(all, 0.4s, ease-in-out);
+			@include transform(translateY(0px));
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+	a {
+		//* Some block styles for "main" links.
+		display: block;
+		@include rhythm-padding(1);
+		@include samovar-padding(1);
+		@include samovar-highlight("color-hover");
+		&:hover {
+			border: none;
+		}
+	}
+	.current-menu-item > a {
+		//* Highlight the current item link.
+		@include samovar-highlight("color");
+	}
+	.sub-menu {
+		//* Initial styles for sub-menu container, is changeable via hover.
+		visibility: hidden;
+		opacity: 0;
+		position: absolute;
+		width: 200px;
+		z-index: 99;
+		@include single-transition(all, 0.4s, ease-in-out);
+		@include transform(translateY(20px));
+		a {
+			//* Some styles for "sub-menu" links.
+			@include rhythm-padding(0.5);
+			position: relative;
+			width: 200px;
+			font-size: 0.75rem;
+			@include samovar-highlight("color-hover");
+			&:before {
+				//* Add small arrow for "sub-menu" links.
+				content: "\f105";
+				margin-right: $base-line-height * 0.75;
+				font-family: FontAwesome;
+			}
+		}
+		.sub-menu {
+			//* Some styles for "sub-sub-menu" container.
+			margin-top: - ($base-line-height * 3);
+			margin-left: 200px;
+		}
+	}
+}
+
+@import "header-nav-search";
+@import "header-nav-mobile";

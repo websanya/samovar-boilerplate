@@ -1,0 +1,84 @@
+/* ### Comments */
+
+//* Some containers for comments.
+.comment-respond, .entry-comments, .entry-pings {
+	@include samovar-all-paddings();
+	//* Add background and shadow for boxed layout.
+	body.samovar-boxed-layout & {
+		@include samovar-smallbox();
+		@include samovar-normalbox();
+		@include samovar-trailer();
+	}
+	@include breakpoint($kenny) {
+		&:last-child {
+			margin-bottom: 0 !important;
+		}
+	}
+	h3 {
+		@include margin-trailer();
+	}
+}
+
+//* A lot of boring stuff for comments content.
+.entry-comments {
+	
+	p {
+		@include margin-trailer();
+	}
+	.comment-list li {
+		@include rhythm-padding();
+		li {
+			padding-left: $base-line-height * 2;
+			padding-bottom: 0;
+		}
+	}
+	li.comment {
+		background-color: transparent;
+		border-right: none;
+		&:last-child {
+			padding-bottom: 0;
+		}
+	}
+	.comment-content {
+		clear: both;
+		ul, ol, dl {
+			@include margin-trailer();
+		}
+	}
+	.comment-author {
+		margin-bottom: 0;
+	}
+	.entry-pings .reply {
+		display: none;
+	}
+	
+}
+
+.comment-respond {
+	label {
+		display: block;
+		margin-right: 12px;
+	}
+	.form-submit {
+		margin-bottom: 0;
+		input {
+			margin-bottom: 0;
+		}
+	}
+}
+
+//* Avatar.
+.avatar {
+	float: left;
+}
+.alignleft .avatar,
+.author-box .avatar {
+	margin-right: $base-line-height * 2;
+}
+.alignright .avatar {
+	margin-left: $base-line-height * 2;
+}
+.comment .avatar {
+	@include margin-trailer();
+	margin-right: $base-line-height;
+}

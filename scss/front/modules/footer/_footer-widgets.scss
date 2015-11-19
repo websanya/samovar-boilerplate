@@ -1,0 +1,82 @@
+/* ### Footer Widgets */
+
+.footer-widgets {
+	
+	//* Container itself.
+	@include samovar-all-paddings();
+	clear: both;
+	@include samovar-normalbox("dark");
+	
+	//* Footer widget title.
+	.widget-title {
+		@include margin-trailer();
+		color: samovar-color("primary-white");
+		@include apply-side-rhythm-border(bottom, $width: 2px, $lines: 1);
+	}
+	
+	//* Link styles.
+	a {
+		color: samovar-color("primary-highlight");
+		&.button, &:hover {
+			color: samovar-color("primary-white") !important;
+		}
+	}
+	
+	//* List items.
+	li {
+		@include margin-trailer();
+		@include padding-trailer();
+		@include apply-side-rhythm-border(bottom, $width: 2px, $lines: 1);
+		border-color: samovar-color("primary-white");
+		&:last-of-type {
+			border: none;
+			padding-bottom: 0;
+			margin-bottom: 0;
+		}
+	}
+	
+	//* Paragraphs.
+	p {
+		@include margin-trailer();
+		&:last-child {
+			margin-bottom: 0;
+			padding-bottom: 0;	
+		}
+	}
+	
+}
+
+//* Footer widgets padding for small devices and columns for large.
+.footer-widgets-1,
+.footer-widgets-2,
+.footer-widgets-3 {
+	background-color: rgba(0, 0, 0, 0.3);
+	box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px 0px, rgba(0, 0, 0, 0.8) 0px 1px 7px 0px inset;
+	@include samovar-all-paddings();
+	@include samovar-trailer();
+	&:last-of-type {
+		margin-bottom: 0;
+	}
+	width: 100%;
+	@include breakpoint($kenny) {
+		margin-bottom: 0;
+		max-width: 30%;
+	}
+}
+
+//* Small margin for the first column.
+.footer-widgets-1 {
+	margin-right: 0;
+	@include breakpoint($kenny) {
+		margin-right: 5%;
+	}
+}
+
+//* Floating some stuff.
+.footer-widgets-1,
+.footer-widgets-2 {
+	float: left;
+}
+.footer-widgets-3 {
+	float: right;
+}

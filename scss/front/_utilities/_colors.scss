@@ -1,20 +1,219 @@
 /* ## Color management
 --------------------------------------------- */
 
-$white:         #fff;
-$white-genesis: #f5f5f5;
-$black-genesis: #333;
-$gray-genesis:  #999;
-$red-genesis:   #e5554e;
+//* All the colors right here.
+$white:          #fff;
+$black-subtle:   #333;
+$black-lite:     #999;
+$gray-alpha:     rgba(255,255,255,.75);
+$red-genesis:    #ff454e;
+$green-samovar:  #4aaf58;
+$gold-samovar:   #cda200;
+$blue-samovar:   #36a6e2;
 
+//* Map with semantic color names.
 $theme: (
-	"primary-white":     $white-genesis,
-	"secondary-white":   $white,
-	"primary-black":     $black-genesis,
-	"primary-gray":      $gray-genesis,
-	"primary-highlight": $red-genesis,
+	"primary-white":     $white,
+	"primary-black":     $black-subtle,
+	"secondary-black":   $black-lite,
+	"primary-gray":      $gray-alpha,
+	"primary-red":       $red-genesis,
+	"primary-green":     $green-samovar,
+	"primary-gold":      $gold-samovar,
+	"primary-blue":      $blue-samovar,
 );
 
+//* Shortcut function to get colors from the map.
 @function samovar-color($name) {
 	@return map-get($theme, $name);
+}
+
+//* Mixin for small containers (boxed layout).
+@mixin samovar-smallbox() {
+	background: samovar-color("secondary-white");
+	box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+//* Mixin for normal-colored containers (boxed layout).
+@mixin samovar-normalbox($value: "light") {
+	@if $value == "light" {
+		background-color: samovar-color("primary-white");
+		color: samovar-color("primary-black");
+	}
+	@else if $value == "dark" {
+		background-color: samovar-color("primary-black");
+		color: samovar-color("primary-white");
+	}
+}
+
+//* Mixin for different color schemes.
+@mixin samovar-highlight($value) {
+	
+	//* Value for links etc. which are highlighted by default.
+	@if $value == "color" {
+		body.samovar-red-color-scheme & {
+			color: samovar-color("primary-red");
+			&:hover {
+				color: samovar-color("primary-black");
+			}
+		}
+		body.samovar-green-color-scheme & {
+			color: samovar-color("primary-green");
+			&:hover {
+				color: samovar-color("primary-black");
+			}
+		}
+		body.samovar-gold-color-scheme & {
+			color: samovar-color("primary-gold");
+			&:hover {
+				color: samovar-color("primary-black");
+			}
+		}
+		body.samovar-blue-color-scheme & {
+			color: samovar-color("primary-blue");
+			&:hover {
+				color: samovar-color("primary-black");
+			}
+		}
+	}
+	//* Value for other stuff which is highlighted on hover.
+	@else if $value == "color-hover" {
+		body.samovar-red-color-scheme &:hover {
+			color: samovar-color("primary-red") !important;
+		}
+		body.samovar-green-color-scheme &:hover {
+			color: samovar-color("primary-green") !important;
+		}
+		body.samovar-gold-color-scheme &:hover {
+			color: samovar-color("primary-gold") !important;
+		}
+		body.samovar-blue-color-scheme &:hover {
+			color: samovar-color("primary-blue") !important;
+		}
+	}
+	//* Value for buttons etc. which bg is highlighted by default.
+	@else if $value == "bg" {
+		body.samovar-red-color-scheme & {
+			background-color: samovar-color("primary-red");
+			color: samovar-color("primary-white");
+		}
+		body.samovar-green-color-scheme & {
+			background-color: samovar-color("primary-green");
+			color: samovar-color("primary-white");
+		}
+		body.samovar-gold-color-scheme & {
+			background-color: samovar-color("primary-gold");
+			color: samovar-color("primary-white");
+		}
+		body.samovar-blue-color-scheme & {
+			background-color: samovar-color("primary-blue");
+			color: samovar-color("primary-white");
+		}
+	}
+	//* Value for bordered containers which are highlighted by default.
+	@else if $value == "border" {
+		body.samovar-red-color-scheme & {
+			border-color: samovar-color("primary-red");
+		}
+		body.samovar-green-color-scheme & {
+			border-color: samovar-color("primary-green");
+		}
+		body.samovar-gold-color-scheme & {
+			border-color: samovar-color("primary-gold");
+		}
+		body.samovar-blue-color-scheme & {
+			border-color: samovar-color("primary-blue");
+		}
+	}
+	//* Value for blockquotes with highlighted left border.
+	@else if $value == "border-left" {
+		body.samovar-red-color-scheme & {
+			border-left: 4px solid samovar-color("primary-red");
+		}
+		body.samovar-green-color-scheme & {
+			border-left: 4px solid samovar-color("primary-green");
+		}
+		body.samovar-gold-color-scheme & {
+			border-left: 4px solid samovar-color("primary-gold");
+		}
+		body.samovar-blue-color-scheme & {
+			border-left: 4px solid samovar-color("primary-blue");
+		}
+	}
+	//* Value for mobile overlay which has highlighted bg with alpha channel.
+	@else if $value == "bga" {
+		body.samovar-red-color-scheme & {
+			background-color: rgba(samovar-color("primary-red"),.9);
+		}
+		body.samovar-green-color-scheme & {
+			background-color: rgba(samovar-color("primary-green"),.9);
+		}
+		body.samovar-gold-color-scheme & {
+			background-color: rgba(samovar-color("primary-gold"),.9);
+		}
+		body.samovar-blue-color-scheme & {
+			background-color: rgba(samovar-color("primary-blue"),.9);
+		}
+	}
+	//* Value for SVG highlighted fills by default.
+	@else if $value == "fill" {
+		body.samovar-red-color-scheme & {
+			fill: samovar-color("primary-red");
+		}
+		body.samovar-green-color-scheme & {
+			fill: samovar-color("primary-green");
+		}
+		body.samovar-gold-color-scheme & {
+			fill: samovar-color("primary-gold");
+		}
+		body.samovar-blue-color-scheme & {
+			fill: samovar-color("primary-blue");
+		}
+	}
+	//* Value for SVG highlighted fills by default.
+	@else if $value == "color-invert" {
+		body.samovar-red-color-scheme & {
+			color: samovar-color("primary-green");
+		}
+		body.samovar-green-color-scheme & {
+			color: samovar-color("primary-red");
+		}
+		body.samovar-gold-color-scheme & {
+			color: samovar-color("primary-blue");
+		}
+		body.samovar-blue-color-scheme & {
+			color: samovar-color("primary-gold");
+		}
+	}
+	//* Value for SVG highlighted fills by default.
+	@else if $value == "bg-invert" {
+		body.samovar-red-color-scheme & {
+			background-color: samovar-color("primary-green");
+		}
+		body.samovar-green-color-scheme & {
+			background-color: samovar-color("primary-red");
+		}
+		body.samovar-gold-color-scheme & {
+			background-color: samovar-color("primary-blue");
+		}
+		body.samovar-blue-color-scheme & {
+			background-color: samovar-color("primary-gold");
+		}
+	}
+	//* Value for bordered containers which are highlighted by default.
+	@else if $value == "border-invert" {
+		body.samovar-red-color-scheme & {
+			border-color: samovar-color("primary-green");
+		}
+		body.samovar-green-color-scheme & {
+			border-color: samovar-color("primary-red");
+		}
+		body.samovar-gold-color-scheme & {
+			border-color: samovar-color("primary-blue");
+		}
+		body.samovar-blue-color-scheme & {
+			border-color: samovar-color("primary-gold");
+		}
+	}
+	
 }

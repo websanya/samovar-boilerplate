@@ -1,81 +1,79 @@
-/* ## WordPress
---------------------------------------------- */
+/* ### WordPress */
 
+//* Alignment classes.
 a.aligncenter img {
 	display: block;
 	margin: 0 auto;
 }
-
 a.alignnone {
 	display: inline-block;
 }
-
 .alignleft {
 	float: left;
 	text-align: left;
 }
-
 .alignright {
 	float: right;
 	text-align: right;
 }
-
 a.alignleft,
 a.alignnone,
 a.alignright {
 	max-width: 100%;
 }
-
 img.centered,
 .aligncenter {
 	display: block;
 	margin: 0 auto;
-	@include margin-trailer();
+	@include samovar-trailer();
 }
-
 img.alignnone,
 .alignnone {
-	@include margin-trailer();
+	@include samovar-trailer();
 }
-
 a.alignleft,
 img.alignleft,
 .wp-caption.alignleft {
-	@include margin-trailer();
+	@include samovar-trailer();
 	margin-right: $base-line-height * 2;
 }
-
 a.alignright,
 img.alignright,
 .wp-caption.alignright {
-	@include margin-trailer();
+	@include samovar-trailer();
 	margin-left: $base-line-height * 2;
 }
 
+//* Caption classes.
 .wp-caption-text {
+	font-size: 0.75rem;
+	@include breakpoint($kyle) {
+		font-size: 0.85rem;
+	}
 	font-weight: normal;
 	text-align: center;
 }
-
 .entry-content p.wp-caption-text {
 	margin-bottom: 0;
 }
 
-/* ## WP Audio Shortcode
---------------------------------------------- */
-
+//* WordPress Audio embed.
 .wp-audio-shortcode {
 	height: $base-line-height * 2 !important;
-	@include margin-trailer(2);
+	@include samovar-trailer();
+	.mejs-controls {
+		height: $base-line-height * 2 !important;
+	}
 }
 
-/* ## WP Video
---------------------------------------------- */
-
+//* WordPress Video embed.
 .wp-video {
-	@include margin-trailer(2);
+	width: 100% !important;
+	@include samovar-trailer();
 }
-
+.wp-video-shortcode {
+	width: 100% !important;
+}
 .iframe-container {
 	&:after {
 		clear: both;
@@ -84,59 +82,47 @@ img.alignright,
 	}
 	> iframe {
 		float: left;
+		width: 100%;
 	}
 }
 
-/* ## Gallery
---------------------------------------------- */
-
+//* Gallery.
 .gallery {
 	overflow: hidden;
 }
-
 .gallery-item {
 	float: left;
-	@inlcude margin-trailer(2);
+	@inlcude samovar-trailer();
 	text-align: center;
 }
-
 .gallery-columns-2 .gallery-item {
 	width: 50%;
 }
-
 .gallery-columns-3 .gallery-item {
 	width: 33%;
 }
-
 .gallery-columns-4 .gallery-item {
 	width: 25%;
 }
-
 .gallery-columns-5 .gallery-item {
 	width: 20%;
 }
-
 .gallery-columns-6 .gallery-item {
 	width: 16.6666%;
 }
-
 .gallery-columns-7 .gallery-item {
 	width: 14.2857%;
 }
-
 .gallery-columns-8 .gallery-item {
 	width: 12.5%;
 }
-
 .gallery-columns-9 .gallery-item {
 	width: 11.1111%;
 }
-
 .gallery img {
 	@include apply-side-rhythm-border(all, $lines: 0.5);
 	height: auto;
-}
-
-.gallery img:hover {
-	border-color: samovar-color("primary-highlight");
+	&:hover {
+		@include samovar-highlight("border");
+	}
 }

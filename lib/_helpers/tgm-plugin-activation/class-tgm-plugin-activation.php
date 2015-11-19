@@ -865,7 +865,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 
             // Add file_path key for all plugins.
             foreach ( $this->plugins as $plugin => $values ) {
-                $this->plugins[$plugin]['file_path'] = $this->_get_plugin_basename_from_slug( $values['slug'] );
+              $this->plugins[$plugin]['file_path'] = $this->_get_plugin_basename_from_slug( $values['slug'] );
             }
 
         }
@@ -879,13 +879,13 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
          * @param string $slug Plugin slug (typically folder name) as provided by the developer.
          * @return string      Either file path for plugin if installed, or just the plugin slug.
          */
-        protected function _get_plugin_basename_from_slug( $slug ) {
+        public function _get_plugin_basename_from_slug( $slug ) {
 
             $keys = array_keys( get_plugins() );
 
             foreach ( $keys as $key ) {
                 if ( preg_match( '|^' . $slug .'/|', $key ) ) {
-                    return $key;
+                  return $key;
                 }
             }
 

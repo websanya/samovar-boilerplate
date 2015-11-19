@@ -49,7 +49,7 @@ function samovar_video_post_format_save( $post_id, $post ) {
 }
 
 //* Output video Shortcode markup.
-add_action( 'genesis_before_entry', 'samovar_video_post_format_output' );
+add_action( 'genesis_entry_content', 'samovar_video_post_format_output', 6 );
 function samovar_video_post_format_output() {
 	if ( get_post_format() != 'video' ) {
 		return;
@@ -62,7 +62,7 @@ function samovar_video_post_format_output() {
 	
 	if ( ! empty($video_url_embed) ) {
 		global $wp_embed;
-		echo $wp_embed->run_shortcode( '[embed]' . trim($video_url_embed) . '[/embed]' );
+		echo '<p>' . $wp_embed->run_shortcode( '[embed]' . trim($video_url_embed) . '[/embed]' ) . '</p>';
 	} else {
 		$atts = array();
 		if ( ! empty($video_url_mp4) ) {

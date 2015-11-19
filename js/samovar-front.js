@@ -13,3 +13,12 @@
 // @codekit-prepend "front/fullscreen-header/fullscreen.js";
 
 // @codekit-prepend "front/codrops-overlay/codrops-overlay.js";
+
+// @codekit-prepend "front/yandex-share/share.js";
+
+// @codekit-prepend "front/progress-reading/progress.js";
+
+//* Remove comments link everywhere
+(function($) {
+// 	$(".entry-comments-link").detach();
+})(jQuery);

@@ -7,6 +7,92 @@
  * @copyright Copyright (c) 2015, Alexander Goncharov
  * @license GNU Public License (http://opensource.org/licenses/gpl-2.0.php)
  */
+ 
+//* Add color scheme body class.
+add_filter( 'body_class', 'samovar_layout_body_class' );
+function samovar_layout_body_class( $classes ) {
+	
+	switch ( genesis_get_option( 'layout_option', SAMOVAR_SETTINGS_FIELD ) ) {
+		case 'default':
+			break;
+		case 'boxed':
+			$classes[] = 'samovar-boxed-layout';
+			break;
+	}
+	
+	return $classes;
+	
+} 
+ 
+//* Add color scheme body class.
+add_filter( 'body_class', 'samovar_color_scheme_body_class' );
+function samovar_color_scheme_body_class( $classes ) {
+	
+	switch ( genesis_get_option( 'color_scheme', SAMOVAR_SETTINGS_FIELD ) ) {
+		case 'red':
+			$classes[] = 'samovar-red-color-scheme';
+			break;
+		case 'green':
+			$classes[] = 'samovar-green-color-scheme';
+			break;
+		case 'gold':
+			$classes[] = 'samovar-gold-color-scheme';
+			break;
+		case 'blue':
+			$classes[] = 'samovar-blue-color-scheme';
+			break;
+	}
+	
+	switch ( genesis_get_option( 'color_scheme_header', SAMOVAR_SETTINGS_FIELD ) ) {
+		case 'light':
+			$classes[] = 'samovar-light-header-color-scheme';
+			break;
+		case 'dark':
+			$classes[] = 'samovar-dark-header-color-scheme';
+			break;
+	}
+	
+	switch ( genesis_get_option( 'color_scheme_footer', SAMOVAR_SETTINGS_FIELD ) ) {
+		case 'light':
+			$classes[] = 'samovar-light-footer-color-scheme';
+			break;
+		case 'dark':
+			$classes[] = 'samovar-dark-footer-color-scheme';
+			break;
+	}
+	
+	return $classes;
+	
+}
+ 
+//* Show Yandex Share Module
+if ( genesis_get_option( 'share_active', SAMOVAR_SETTINGS_FIELD ) ) {
+	add_action( 'genesis_entry_footer', 'samovar_share_markup', 6 );
+	function samovar_share_markup() {
+		?>
+		<div class="entry-share"><span id="ya_share<?php echo get_the_ID(); ?>"></span></div>
+		<script>
+			window.setInterval(function() {
+				new Ya.share({
+					element: 'ya_share<?php echo get_the_ID(); ?>',
+					theme: 'counter',
+          elementStyle: {
+            'quickServices': [
+            	<?php if ( genesis_get_option( 'share_facebook', SAMOVAR_SETTINGS_FIELD ) ) echo "'facebook'," ?>
+            	<?php if ( genesis_get_option( 'share_twitter', SAMOVAR_SETTINGS_FIELD ) )  echo "'twitter'," ?>
+            	<?php if ( genesis_get_option( 'share_gplus', SAMOVAR_SETTINGS_FIELD ) )  echo "'gplus'," ?>
+            	<?php if ( genesis_get_option( 'share_vkontakte', SAMOVAR_SETTINGS_FIELD ) )  echo "'vkontakte'," ?>
+            	<?php if ( genesis_get_option( 'share_pinterest', SAMOVAR_SETTINGS_FIELD ) )  echo "'pinterest'," ?>
+            ]
+          },
+          description: '<?php echo trim( get_the_excerpt() ); ?>',
+          image: '<?php if ( wp_get_attachment_url( get_post_thumbnail_id() ) ) { echo wp_get_attachment_url( get_post_thumbnail_id() ); } ?>',
+				});
+			}, 2000);
+		</script>
+		<?php
+	}
+}
 
 //* Add footer text markup.
 if ( genesis_get_option( 'footer_text', SAMOVAR_SETTINGS_FIELD ) ) {
@@ -27,9 +113,6 @@ function samovar_menu_body_class( $classes ) {
 	switch ( genesis_get_option( 'header_menu', SAMOVAR_SETTINGS_FIELD ) ) {
 		case 'left':
 			$classes[] = 'samovar-left-header-menu';
-			break;
-		case 'center':
-			$classes[] = 'samovar-center-header-menu';
 			break;
 		case 'right':
 			$classes[] = 'samovar-right-header-menu';
@@ -65,10 +148,27 @@ function samovar_always_mobile_header_body_class( $classes ) {
 
 }
 
-//* Add header search markup.
-add_action( 'genesis_header', 'samovar_header_search_markup', 11 );
-function samovar_header_search_markup() {
-	echo '<div class="samovar-header-search"><i class="fa fa-search"></i></div>';
+if ( genesis_get_option( 'header_search', SAMOVAR_SETTINGS_FIELD ) == 1 ) {
+	
+	//* Add header search markup.
+	add_action( 'genesis_header', 'samovar_header_search_markup' );
+	function samovar_header_search_markup() {
+		echo '<div class="samovar-header-search"><i id="search-trigger" class="fa fa-search"></i></div>';
+	}
+	
+	//* Move menu markup after search.
+	remove_action( 'genesis_header', 'samovar_show_header_menu' );
+	add_action( 'genesis_header', 'samovar_show_header_menu' );
+	
+	//* Add header search overlay markup.
+	add_action( 'genesis_after', 'samovar_header_search_overlay_markup' );
+	function samovar_header_search_overlay_markup() {
+		echo '<div class="overlay overlay-hugeinc overlay-search">
+						<svg class="overlay-close" viewBox="0 0 32 32"><path d="M6.1,8.9l17,17c0.8,0.8,2,0.8,2.8,0c0.8-0.8,0.8-2,0-2.8l-17-17c-0.8-0.8-2-0.8-2.8,0S5.3,8.1,6.1,8.9z"/><path d="M23.1,6.1l-17,17c-0.8,0.8-0.8,2,0,2.8c0.8,0.8,2,0.8,2.8,0l17-17c0.8-0.8,0.8-2,0-2.8 C25.1,5.3,23.9,5.3,23.1,6.1z"/></svg>
+						' . get_search_form( false ) . '
+					</div>';
+	}
+
 }
 
 //* Add favicon & touch icon markup.
@@ -179,7 +279,7 @@ if ( genesis_get_option( 'footer_menu', SAMOVAR_SETTINGS_FIELD ) ) {
 if ( genesis_get_option( 'fonts_google', SAMOVAR_SETTINGS_FIELD ) ) {
 	add_action( 'wp_enqueue_scripts', 'samovar_google_fonts_enqueue' );
 	function samovar_google_fonts_enqueue() {
-		wp_enqueue_style( 'samovar-google-fonts', esc_url( genesis_get_option( 'fonts_google', SAMOVAR_SETTINGS_FIELD ) ) );
+		wp_enqueue_style( 'samovar-google-fonts', esc_attr( genesis_get_option( 'fonts_google', SAMOVAR_SETTINGS_FIELD ) ) );
 	}
 }
 
@@ -206,8 +306,9 @@ if ( genesis_get_option( 'custom_css_markup', SAMOVAR_SETTINGS_FIELD ) ) {
 	add_action( 'wp_head', 'custom_css_markup_init' );
 	function custom_css_markup_init() {
 		?>
+		<!-- custom css from settings -->
 		<style type="text/css">
-			<?php echo esc_textarea( genesis_get_option( 'custom_css_markup', SAMOVAR_SETTINGS_FIELD ) ); ?>
+<?php echo strip_tags( genesis_get_option( 'custom_css_markup', SAMOVAR_SETTINGS_FIELD ) ); ?>
 		</style>
 		<?php
 	}

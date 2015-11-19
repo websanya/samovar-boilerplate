@@ -1,54 +1,55 @@
 /* ## Widgets
 --------------------------------------------- */
 
+//* Generic styles for sidebar widgets.
 .sidebar .widget {
-	
-	background-color: samovar-color("secondary-white");
-	@include padding-leader(3);
-	@include samovar-padding(2);
-	
-	&:last-child {
-		@include padding-trailer(3);
+
+	//* Boxed layout specific stuff.
+	body.samovar-boxed-layout & {
+		@include samovar-normalbox();
+		@include samovar-smallbox();
+		@include samovar-trailer();
 	}
 	
-	@include breakpoint($kyle) {
-		@include margin-trailer(3);
-		@include rhythm-padding(3);
-		@include samovar-padding(3);
+	@include samovar-all-paddings();
+	
+	&:last-child {
+		margin: 0;
 	}
 	
 	.widget-title {
-		@include margin-trailer(2);
-	}
-	
-	li {
-		
 		@include margin-trailer();
-		@include apply-side-rhythm-border(bottom, $lines: 1);
-		border-bottom: 1px dotted samovar-color("primary-black");
-		
+		@include apply-side-rhythm-border(bottom, $width: 2px, $lines: 1);
+	}
+	li {
+		@include margin-trailer();
+		@include apply-side-rhythm-border(bottom, $width: 2px, $lines: 1);
+		border-color: samovar-color("primary-black");
 		&:last-child {
 			border: none;
 			margin-bottom: 0;
 			padding-bottom: 0;
 		}
-	
 	}
-	
 	p {
+		@include margin-trailer();
 		&:last-child {
 			margin-bottom: 0;
 			padding-bottom: 0;	
 		}
 	}
-	
+	form, input {
+		@include margin-trailer();
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
 	ol > li {
 		list-style-position: inside;
 		list-style-type: decimal;
 		padding-left: $base-line-height * 2;
 		text-indent: - ($base-line-height * 2);
 	}
-	
 	li li {
 		border: none;
 		margin-left: $base-line-height * 2;
@@ -60,56 +61,66 @@
 /* ### Widget Calendar */
 
 .widget_calendar {
-	
 	font-size: 0.75rem;
-
 	.widget-title {
 		margin-bottom: $base-line-height !important;
 	}
-	
 	table {
 		width: 100%;
-		margin-bottom: 0;	
-		
+		margin-bottom: 0;		
 		caption {
 			font-size: 1rem;
 		}
-		
 	}
-	
 	tr {
 		@include rhythm-padding(0.5);
 		border: none;
 	}
-	
 	td, th {
 		padding: 0;
 		text-align: center;
 	}
-	
 }
 
 /* ### Featured Content */
 
 .featured-content .entry {
-	
 	@include apply-side-rhythm-border(bottom, $lines: 2);
 	@include margin-trailer(2);
-	
 	&:last-child {
 		border: none;
 		margin-bottom: 0;
 		padding-bottom: 0;
 	}
-	
 	.entry-title {
 		@include margin-trailer();
 		font-size: 1.125rem;
 		@include adjust-leading-to(2);
 	}
-	
 	.entry-meta {
 		margin-bottom: $base-line-height !important	;
 	}
-	
+}
+
+/* ### Search Form */
+
+.search-form {
+	overflow: hidden;
+	input[type="search"] {
+		margin-bottom: 0;
+	}
+}
+
+.entry-content .search-form {
+	width: 50%;
+}
+
+.widget_search input[type="submit"] {
+	border: 0;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	position: absolute;
+	width: 1px;
 }

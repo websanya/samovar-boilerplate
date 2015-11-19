@@ -28,7 +28,7 @@ samovar_back_require( 'metaboxes-settings/settings-page.php' );
 //* Add links to admin bar.
 samovar_back_require( 'admin-menu-bar.php' );
 //* Post settings meta boxes.
-samovar_back_require( 'metaboxes-post/samovar-post-settings.php' );
+samovar_back_require( 'metaboxes-post/post-settings-page.php' );
 //* Enqueue Admin scripts.
 samovar_back_require( 'admin-scripts.php' );
 //* Add Some User Settings.
@@ -45,5 +45,44 @@ samovar_front_require( 'entry-actions.php' );
 //* Enqueue Theme scripts.
 samovar_front_require( 'front-scripts.php' );
 
-//* Add some Customizer magic
+//* Add some Customizer magic.
 samovar_customizer_require( 'samovar-customizer.php' );
+
+//* Add some protocol free stuff and some html5 tags.
+add_filter( 'image_send_to_editor', 'samovar_insert_figure', 10, 9 );
+function samovar_insert_figure( $html, $id, $caption, $title, $align, $url ) {
+  // remove protocol
+  $url = str_replace( array( 'http://','https://' ), '//', $url );
+  $html5 = "<figure id='post-$id' class='align-$align media-$id'>";
+  $html5 .= "<img src='$url' alt='$title' />";
+  if ($caption) {
+    $html5 .= "<figcaption class='wp-caption-text'>$caption</figcaption>";
+  }
+  $html5 .= "</figure>";
+  return $html5;
+}
+
+//* Remove all <br> tags in content.
+remove_filter( 'the_content', 'wpautop' );
+add_filter( 'the_content', 'samovar_better_wpautop' , 99);
+function samovar_better_wpautop( $pee ) {
+	return wpautop( $pee, false );
+}
+
+//* Modify breadcrumb arguments.
+add_filter( 'genesis_breadcrumb_args', 'sp_breadcrumb_args' );
+function sp_breadcrumb_args( $args ) {
+	$args['home'] = get_bloginfo( 'name' );
+	$args['sep'] = ' » ';
+	$args['labels']['prefix'] = '';
+	return $args;
+}
+
+//* Reposition the breadcrumbs.
+if ( function_exists( 'yoast_breadcrumb' ) && get_option( 'wpseo_internallinks' )['breadcrumbs-enable'] ) {
+	remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
+	add_action( 'genesis_before_loop', 'samovar_yoast_breadcrumbs' );
+}
+function samovar_yoast_breadcrumbs() {
+	yoast_breadcrumb('<div class="breadcrumb">','</div>');
+}

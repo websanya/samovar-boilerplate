@@ -1,177 +1,100 @@
 /* ## Site Containers
 --------------------------------------------- */
 
-.site-inner,
-.wrap {
-	margin: 0 auto;
-	max-width: 800px;
-	@include breakpoint($kenny) {
-		max-width: 900px;	
-	}
-	@include breakpoint($cartman) {
-		max-width: 1100px;
-	}
-	@include breakpoint($chef) {
-		max-width: 1200px;
-	}
-}
+/* ### Inner container & wrappers */
 
-.full-width-content .site-inner {
-	max-width: 800px;
-	@include breakpoint($kenny) {
-		max-width: 900px;	
+.site-inner, .wrap {
+	
+	//* Basic width.
+	margin: 0 auto;
+	@include breakpoint($chef) {
+		max-width: 1280px;
 	}
+	
+	//* Width for boxed layout.
+	body.samovar-boxed-layout & {
+		@include breakpoint($chef) {
+			max-width: 1350px;
+		}
+	}
+	
 }
 
 .site-inner {
-	clear: both;
-	@include breakpoint($kyle) {
-		@include margin-leader(3);
+	
+	//* Necessary evil. The most misterious shit in this whole stylesheet.
+	@include padding-trailer();
+	
+	//* Basic width restrictions for inner container.
+	@include breakpoint($kenny) {
+		max-width: 95%;	
 	}
+	@include breakpoint($chef) {
+		max-width: 1280px;
+	}
+	
+	//* Width for full-width post layout.
+	body.full-width-content & {
+		@include breakpoint($kenny) {
+			max-width: 900px;	
+		}
+	}
+	
+	//* Background, paddings and margins for boxed layout.
+	body.samovar-boxed-layout & {
+// 		background: url("images/boxed-container-bg.png");
+		background: url("http://subtlepatterns.com/patterns/crossword.png");
+		box-shadow: 0 0 5px rgba(0,0,0,0.1);
+		//* Add margins and paddings for inner container.
+		@include breakpoint($kenny) {
+			@include rhythm-margins(3);
+		}
+		@include samovar-all-paddings();
+		@include breakpoint($chef) {
+			@include rhythm-padding(3);
+			@include samovar-padding(3);
+		}
+	}
+	
 }
 
-/* ## Column Widths and Positions
+/* ## Content & Sidebar
 --------------------------------------------- */
 
-/* ### Content */
+/* ### Content area (next to the sidebar) */
 
+//* Right content is default somehow.
 .content {
 	float: right;
 	width: 100%;
 	@include breakpoint($kenny) {
-		max-width: 580px;	
-	}
-	@include breakpoint($cartman) {
-		max-width: 700px;
-	}
-	@include breakpoint($chef) {
-		max-width: 790px;
+		max-width: 65%;
 	}
 }
 
-.content-sidebar .content {
+//* Left goes to the left.
+body.content-sidebar .content {
 	float: left;
 }
 
-.full-width-content {
-	.content {
-		float: none;
-		max-width: 100%;
-	}
+//* Full-width is not floating.
+body.full-width-content .content {
+	float: none;
+	max-width: 100%;
 }
 
-/* ### Primary Sidebar */
+/* ### Sidebar */
 
+//* Default sidebar is right.
 .sidebar-primary {
 	float: right;
 	width: 100%;
 	@include breakpoint($kenny) {
-		max-width: 280px;	
-	}
-	@include breakpoint($cartman) {
-		max-width: 360px;
+		max-width: 32%;
 	}
 }
 
+//* Left goes to the left.
 .sidebar-content .sidebar-primary {
 	float: left;
-}
-
-/* ## Footer Widgets
---------------------------------------------- */
-
-.footer-widgets-1,
-.footer-widgets-2,
-.footer-widgets-3 {
-	@include samovar-padding(2);
-	width: 100%;
-	@include breakpoint($kenny) {
-		padding: 0;
-		max-width: 280px;	
-	}
-	@include breakpoint($cartman) {
-		max-width: 325px;
-	}
-	@include breakpoint($chef) {
-		max-width: 360px;
-	}
-}
-
-.footer-widgets-1 {
-	margin-right: 0;
-	@include breakpoint($kenny) {
-		margin-right: 30px;
-	}
-	@include breakpoint($cartman) {
-		margin-right: 60px;
-	}
-}
-
-.footer-widgets-1,
-.footer-widgets-2 {
-	float: left;
-}
-
-.footer-widgets-3 {
-	float: right;
-}
-
-/* ## Column Classes
---------------------------------------------- */
-/* Link: http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css */
-
-.five-sixths,
-.four-sixths,
-.one-fourth,
-.one-half,
-.one-sixth,
-.one-third,
-.three-fourths,
-.three-sixths,
-.two-fourths,
-.two-sixths,
-.two-thirds {
-	float: left;
-	margin-left: 2.564102564102564%;
-	@media only screen and (max-width: 800px) {
-		margin: 0;
-		width: 100%;
-	}
-}
-
-.one-half,
-.three-sixths,
-.two-fourths {
-	width: 48.717948717948715%;
-}
-
-.one-third,
-.two-sixths {
-	width: 31.623931623931625%;
-}
-
-.four-sixths,
-.two-thirds {
-	width: 65.81196581196582%;
-}
-
-.one-fourth {
-	width: 23.076923076923077%;
-}
-
-.three-fourths {
-	width: 74.35897435897436%;
-}
-
-.one-sixth {
-	width: 14.52991452991453%;
-}
-
-.five-sixths {
-	width: 82.90598290598291%;
-}
-
-.first {
-	clear: both;
-	margin-left: 0;
 }

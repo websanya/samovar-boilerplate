@@ -31,7 +31,6 @@ function samovar_add_post_header_layout_box() {
 
 //* Post Format settings callback and front end hooks
 samovar_back_require( 'metaboxes-post/post-formats/post-format-audio.php' );
-samovar_back_require( 'metaboxes-post/post-formats/post-format-image.php' );
 samovar_back_require( 'metaboxes-post/post-formats/post-format-link.php' );
 samovar_back_require( 'metaboxes-post/post-formats/post-format-quote.php' );
 samovar_back_require( 'metaboxes-post/post-formats/post-format-video.php' );

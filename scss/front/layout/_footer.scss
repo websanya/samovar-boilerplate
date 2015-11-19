@@ -3,41 +3,63 @@
 
 .site-footer {
 
-	@include rhythm-padding(2);
-	@include samovar-padding(2);
+	//* Some paddings and alignment.
+	@include samovar-all-paddings();
 	text-align: center;
-	@include breakpoint($kyle) {
+	@include breakpoint($kenny) {
 		text-align: left;
 	}
-	background-color: samovar-color("primary-white");
-	color: samovar-color("primary-black");
-
+	
+	//* Remove margins for paragraphs.
 	p {
 		margin-bottom: 0;
 	}
-
-}
-
-.footer-credits {
-	@include breakpoint($kyle) {
-		float: left;	
-	}
-}
-
-.footer-social {
-	@include breakpoint($kyle) {
-		float: right;	
-	}
-	a {
-		margin-right: 2px;
-		color: samovar-color("primary-black");
-		&:hover {
-			color: samovar-color("primary-highlight");
-		}
-		svg {
-			display: inline-block;
-			width: 18px;
-			height: 18px;
+	
+	//* Footer Color Schemes.
+	body.samovar-dark-footer-color-scheme .footer-widgets + & {
+		padding-top: 0;
+		.wrap {
+			@include apply-side-rhythm-border(top, $width: 3px, $lines:2);
+			border-color: samovar-color("primary-white");
 		}
 	}
+	body.samovar-dark-footer-color-scheme & {
+		@include samovar-normalbox("dark");
+		a:hover {
+			color: samovar-color("primary-white");
+			border-color: inherit;
+		}
+		.footer-social a {
+			color: samovar-color("primary-white");
+		}
+	}
+	body.samovar-light-footer-color-scheme & {
+		@include samovar-normalbox();
+		.footer-social a {
+			color: samovar-color("primary-black");
+		}	
+	}
+	
+	//* Footer Inside Stuff.
+	.footer-credits {
+		@include breakpoint($kenny) {
+			float: left;	
+		}
+	}
+	.footer-social {
+		@include breakpoint($kenny) {
+			float: right;	
+		}
+		a {
+			margin-right: 2px;
+			@include samovar-highlight("color-hover");
+			&:hover {
+				border: none;
+			}
+		}
+	}
+
 }
+
+@import "../modules/footer/footer-widgets";
+@import "../modules/footer/footer-scroll-top";

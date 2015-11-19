@@ -1,41 +1,26 @@
-/* ### Genesis eNews Extended */
-
-.sidebar .enews-widget {
+//* Genesis eNews Extended.
+.sidebar .widget.enews-widget {
 	
-	@include padding-trailer(3);
-	background-color: samovar-color("primary-black");
-	color: samovar-color("secondary-white");
-	
-	input,
-	input:focus {
-		border-color: samovar-color("secondary-white");
+	body.samovar-boxed-layout & {
+		background-color: samovar-color("primary-black") !important;
+		color: samovar-color("primary-white");	
 	}
-	
+	input, input:focus {
+		border-color: samovar-color("primary-white");
+	}
 	input[type="submit"] {
-		
 		margin: 0;
 		width: 100%;
-		background-color: samovar-color("primary-highlight");
-		color: samovar-color("secondary-white");
-		
+		@include samovar-highlight("bg");
 		&:hover {
-			background-color: samovar-color("secondary-white");
-			color: samovar-color("primary-black");
+			background-color: samovar-color("primary-white") !important;
+			color: samovar-color("primary-black") !important;
 		}
-		
 	}
-	
 	form {
-		@include margin-trailer(2);
+		@include rhythm-padding(0.5);
 		&:last-child {
 			margin-bottom: 0;
 		}
-	}
-	
-}
-
-.footer-widgets .enews-widget {
-	form {
-		@include margin-trailer(2);
 	}
 }

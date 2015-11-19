@@ -1,10 +1,10 @@
 /*!
  * Theme Name: Samovar Boilerplate
  * Theme URI: https://github.com/websanya/
- * Version: 1.0.0
+ * Version: 1.0.2
  * Description: This is Samovar Boilerplate theme for the Genesis Framework.
  * Author: Alexander Goncharov
- * Author URI: http://websanya.ru/
+ * Author URI: https://websanya.ru/
  * Template: genesis
  * Template Version: 2.1.2
  * Tags: black, marsala, white, responsive-layout, full-width-template, sticky-post, theme-options, translation-ready
@@ -16,3 +16,7 @@
 @import "front/base/base";
 @import "front/layout/index";
 @import "front/modules/index";
+
+.fl-builder-content p:empty {
+	margin: 0;
+}

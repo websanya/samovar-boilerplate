@@ -7,6 +7,10 @@
  * @copyright Copyright (c) 2015, Alexander Goncharov
  * @license GNU Public License (http://opensource.org/licenses/gpl-2.0.php)
  */
+ 
+if ( ! function_exists( 'get_plugins' ) ) {
+	require_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
 
 //* Add default Genesis links and our new Samovar Settings link.
 add_action('admin_bar_menu', 'samovar_add_toolbar_items', 100);
@@ -38,7 +42,7 @@ function samovar_add_toolbar_items($admin_bar) {
     ),
   ));
   foreach ( TGM_Plugin_Activation::$instance->plugins as $plugin ) {
-	  if ( ! is_plugin_active( $plugin['file_path'] ) ) {
+    if ( ! is_plugin_active( TGM_Plugin_Activation::$instance->_get_plugin_basename_from_slug( $plugin['slug'] ) ) ) {
 		  $admin_bar->add_menu( array(
 		    'id'     => 'tgmpa-install-plugins',
 		    'parent' => 'samovar-boilerplate',

@@ -13,7 +13,10 @@ function samovar_link_post_format_box() {
 	wp_nonce_field( 'samovar_link_post_format_save', 'samovar_link_post_format_nonce' );
 	?>
 	<p>
-		<label for="samovar_link_url"><?php _e( 'Link URL:', 'samovar' ); ?> <input type="text" name="samovar_link_format[_samovar_link_url]" id="samovar_link_url" value="<?php echo esc_url( genesis_get_custom_field( '_samovar_link_url' ) ); ?>" size="80" /></label>
+		<b><label for="samovar_link_url"><?php _e( 'Link URL', 'samovar' ); ?></label></b>
+	</p>
+	<p>
+		<input type="text" class="large-text" name="samovar_link_format[_samovar_link_url]" id="samovar_link_url" value="<?php echo esc_url( genesis_get_custom_field( '_samovar_link_url' ) ); ?>" /></label>
 	</p>
 	<?php
 }
@@ -37,7 +40,7 @@ function samovar_link_post_format_save( $post_id, $post ) {
 }
 
 //* Output Link Shortcode markup.
-add_action( 'genesis_before_entry', 'samovar_link_post_format_markup' );
+add_action( 'genesis_entry_content', 'samovar_link_post_format_markup', 6 );
 function samovar_link_post_format_markup() {
 	if ( get_post_format() != 'link' ) {
 		return;
@@ -46,6 +49,6 @@ function samovar_link_post_format_markup() {
 	$link_url = esc_url( genesis_get_custom_field( '_samovar_link_url' ) );
 	
 	if ( ! empty($link_url) ) {
-		echo $link_url;
+		echo "<div class=\"link-format-container\"><i class=\"fa fa-external-link\"></i> <a href=\"$link_url\">$link_url</a></div>";
 	}
 }

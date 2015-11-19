@@ -3,7 +3,13 @@
 
 @import "breakpoint";
 
+/*
+	All the breakpoints I need.
+	
+	$kyle is for extending margins and paddings. Also the menu appears.
+	$kenny is for font resizing. Also the columns (if they present) appear.
+	$chef extends marings and paddings some more on the main containers.
+*/
 $kyle: 769px;
 $kenny: 961px;
-$cartman: 1201px;
-$chef: 1280px;
+$chef: 1401px;

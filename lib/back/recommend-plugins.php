@@ -35,6 +35,13 @@ function samovar_register_required_plugins() {
         'slug'      => 'wordpress-seo',
         'required'  => false,
     ),
+    
+    //* Recommend Favorites
+    array(
+        'name'      => 'Favorites',
+        'slug'      => 'favorites',
+        'required'  => false,
+    ),
 
   );
   /**

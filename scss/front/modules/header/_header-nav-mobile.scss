@@ -1,0 +1,154 @@
+/* ### Mobile Trigger for Overlay */
+
+#menu-trigger-overlay {
+	//* Block and alignment styles for SVG trigger.
+	display: inline-block;
+	height: $base-line-height * 2.5;
+	width: $base-line-height * 2.5;
+	.samovar-left-header-menu & {
+		float: right;
+	}
+	.samovar-right-header-menu & {
+		float: left;
+	}
+	@include rhythm-margins(0.75);
+	cursor: pointer;
+	&:hover path {
+		@include samovar-highlight("fill");
+	}
+	//* Hide on medium+ devices.
+	@include breakpoint($kyle) {
+		display: none;
+	}
+	//* But show with "always mobile" option.
+	.samovar-always-mobile-header & {
+		display: inline-block;
+		@include breakpoint($kyle) {
+			@include rhythm-margins(1);
+			height: $base-line-height * 3;
+			width: $base-line-height * 3;
+		}
+	}
+}
+
+/* ### Mobile Overlay */
+
+.overlay {
+	
+	//* Initial styles for positioning 'n stuff.
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 100000;
+	opacity: 0;
+	visibility: hidden;
+	@include samovar-highlight("bga");
+	@include transition(opacity 0.5s, visibility 0s 0.5s);
+	
+	nav {
+		
+		//* Styles for the navigation inside overlay.
+		overflow-y: scroll;
+		position: relative;
+		width: 90%;
+		height: 70%;
+		margin: auto;
+		top: 55%;
+		font-size: 1.5rem;
+		@include adjust-leading-to(2);
+		@include breakpoint($kyle) {
+			font-size: 1.875rem;
+			@include adjust-leading-to(3);
+		}
+		font-weight: 700;
+		text-align: center;
+		
+		//* Styles to prepare transitions and transforms.
+		@include transform(translateY(-50%));
+		@include perspective(1200px);
+		
+		ul {
+			
+			//* Styles for inside list.
+			display: inline-block;
+			position: relative;
+			padding: 0;
+			margin: 20% auto;
+			@include breakpoint($kenny) {
+				margin: 15% auto;
+			}
+			@include breakpoint($chef) {
+				margin: 10% auto;
+			}
+			list-style: none;
+			opacity: 0.4;
+			
+			//* Styles to prepare yet more transitions and transforms.
+			@include transform(translateY(-25%), rotateX(35deg));
+			@include transition(transform 0.5s, opacity 0.5s);
+
+			//* Styles for items.
+			li {
+				display: block;
+				@include margin-trailer();
+				.sub-menu {
+					margin: 0;
+					font-size: 1rem;
+					@include adjust-leading-to(2);
+				}
+				a {	
+					display: block;
+					color: samovar-color("primary-white");
+					&:hover, &:focus {
+						border: none;
+						color: samovar-color("primary-black");
+					}
+				}
+			}
+			
+		}
+		
+	}
+	
+	//* Classes for opening & closing the overlay.
+	&.open {
+		opacity: 1;
+		visibility: visible;
+		@include single-transition(opacity, 0.5s);
+		nav ul {
+			opacity: 1;
+			@include transform(rotateX(0deg));
+		}
+	}
+	&.close nav ul {
+		@include transform(translateY(25%), rotateX(-35deg));
+	}
+	
+	//* Styles for "close" SVG.
+	.overlay-close {
+		position: absolute;
+		width: 80px;
+		height: 80px;
+		top: 20px;
+		right: 20px;
+		cursor: pointer;
+		z-index: 100000;
+		opacity: 1;
+		path {
+			fill: samovar-color("primary-white");
+		}
+		&:hover path {
+			fill: samovar-color("primary-black");
+		}
+		@include single-transition(all, 0.15s, ease-in-out);
+		&:hover {
+			@include single-transition(all, 0.15s, ease-in-out);
+			-webkit-transform-origin: 50% 50%;
+			@include transform(rotate(180deg));
+			opacity: 0.8;
+		}
+	}
+	
+}

@@ -1,0 +1,34 @@
+/* ## Some mixins
+--------------------------------------------- */
+
+//* Mixin for horizontal paddings.
+@mixin samovar-padding($counter: 1) {
+	padding-left: $base-line-height * $counter;
+	padding-right: $base-line-height * $counter;
+}
+
+//* Mixin for responsive margin trailers.
+@mixin samovar-trailer() {
+	@include margin-trailer();
+	@include breakpoint($kyle) {
+		@include margin-trailer(2);
+	}
+}
+
+//* Mixin for responsive paddings.
+@mixin samovar-all-paddings() {
+	@include samovar-padding();
+	@include rhythm-padding();
+	@include breakpoint($kyle) {
+		@include samovar-padding(2);
+		@include rhythm-padding(2);
+	}
+}
+
+//* Mixin for block to show only on medium devices and above.
+@mixin samovar-block() {
+	display: none;
+	@include breakpoint($kyle) {
+		display: block;
+	}
+}

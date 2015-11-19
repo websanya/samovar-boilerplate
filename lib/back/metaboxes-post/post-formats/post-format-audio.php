@@ -49,7 +49,7 @@ function samovar_audio_post_format_save( $post_id, $post ) {
 }
 
 //* Output Audio Shortcode markup.
-add_action( 'genesis_before_entry', 'samovar_audio_post_format_markup' );
+add_action( 'genesis_entry_content', 'samovar_audio_post_format_markup', 6 );
 function samovar_audio_post_format_markup() {
 	
 	if ( get_post_format() != 'audio' ) {

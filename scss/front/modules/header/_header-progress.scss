@@ -1,0 +1,36 @@
+/* ### Reading Progress Indicator */
+
+.reading-progress {
+	
+	//* Show only on large devices.
+	display: none;
+	@include breakpoint($kenny) {
+		display: block;
+	}
+	//* Basic positioning.
+	width: 100%;
+  height: 5px;
+  position: fixed;
+  left: 0; top: 0;
+  z-index: 100000;
+
+  //* Some weird hacks for consistent view.
+  @include appearance(none);
+  /* Get rid of the default border in Firefox/Opera. */
+  border: none;
+  /* Progress bar container for Firefox/IE10+ */
+  background-color: transparent;
+  /* Progress bar value for IE10+ */
+  @include samovar-highlight("color");
+  /* For Blink/Webkit/Firefox */
+  &::-webkit-progress-bar {
+  	background-color: transparent;
+  }
+  &::-webkit-progress-value {
+  	@include samovar-highlight("bg");
+	}
+	&::-moz-progress-bar {
+	  @include samovar-highlight("bg");
+	}
+	
+}

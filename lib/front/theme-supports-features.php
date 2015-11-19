@@ -9,4 +9,4 @@
  */
  
 //* Add support for post formats.
-add_theme_support( 'post-formats', array( 'aside', 'link', 'image', 'quote', 'video', 'audio' ) );
+add_theme_support( 'post-formats', array( 'link', 'quote', 'video', 'audio' ) );

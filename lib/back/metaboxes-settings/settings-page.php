@@ -42,11 +42,21 @@ class Samovar_Theme_Settings extends Genesis_Admin_Boxes {
 		
 		//* Set the default values.
 		$default_settings = array(
+			'color_scheme'         => 'red',
+			'color_scheme_header'  => 'light',
+			'color_scheme_footer'  => 'light',
 			
 			'header_menu'          => 'left',
 			'sticky_header'        => 0,
 			'always_mobile_header' => 0,
 			'header_search'        => 0,
+			
+			'share_active'         => 0,
+			'share_facebook'       => 0,
+			'share_twitter'        => 0,
+			'share_gplus'          => 0,
+			'share_vkontakte'      => 0,
+			'share_pinterest'      => 0,
 			
 			'footer_text'          => '',
 			'footer_menu'          => 0,
@@ -89,10 +99,10 @@ class Samovar_Theme_Settings extends Genesis_Admin_Boxes {
 	//* Set up Sanitization Filters for fields.
 	function sanitization_filters() {
 		genesis_add_option_filter( 'no_html', $this->settings_field, array(
+			'color_scheme',
+			'color_scheme_header',
+			'color_scheme_footer',
 			'header_menu',
-			'fonts_google',
-			'fonts_typekit',
-			'custom_css_markup',
 			
 			'footer_facebook',
 			'footer_twitter',
@@ -113,12 +123,25 @@ class Samovar_Theme_Settings extends Genesis_Admin_Boxes {
 			
 			'favicon',
 			'touch_icon',
+			
+			'fonts_google',
+			'fonts_typekit',
+			
+			'custom_css_markup',
 		) );
 		genesis_add_option_filter( 'one_zero', $this->settings_field, array(
 			'sticky_header',
-			'footer_menu',
-			'always_mobile_header',
 			'header_search',
+			'always_mobile_header',
+			
+			'share_active',
+			'share_facebook',
+			'share_twitter',
+			'share_gplus',
+			'share_vkontakte',
+			'share_pinterest',
+			
+			'footer_menu',
 		) );
 		genesis_add_option_filter( 'safe_html', $this->settings_field, array(
 			'footer_text',
@@ -145,6 +168,8 @@ class Samovar_Theme_Settings extends Genesis_Admin_Boxes {
 	 * @see Samovar_Theme_Settings::custom_css_markup() callback for custom css.
 	 */
 	function metaboxes() {
+		add_meta_box( 'layout-information', 'Layout Settings', array( $this, 'layout_information_markup' ), $this->pagehook, 'main', 'high' );
+		add_meta_box( 'color-scheme', 'Color Scheme Settings', array( $this, 'color_scheme_markup' ), $this->pagehook, 'main', 'high' );
 		add_meta_box( 'header-information', 'Header Settings', array( $this, 'header_information_markup' ), $this->pagehook, 'main', 'high' );
 		add_meta_box( 'share-information', 'Share Block Settings', array( $this, 'share_information_markup' ), $this->pagehook, 'main', 'high' );
 		add_meta_box( 'footer-information', 'Footer Settings', array( $this, 'footer_information_markup' ), $this->pagehook, 'main', 'high' );
@@ -154,12 +179,49 @@ class Samovar_Theme_Settings extends Genesis_Admin_Boxes {
 	}
 	
 	//* Callback for Header Information metabox.
+	function layout_information_markup() {
+		?>
+		<p><?php _e( 'Layout option:', 'samovar' ); ?>
+			<select name="<?php $this->field_name( 'layout_option' ); ?>">
+				<option value="default"<?php selected( $this->get_field_value( 'layout_option' ), 'default' ); ?>><?php _e( 'Default', 'samovar' ); ?></option>
+				<option value="boxed"<?php selected( $this->get_field_value( 'layout_option' ), 'boxed' ); ?>><?php _e( 'Boxed', 'samovar' ); ?></option>
+			</select>
+		</p>
+		<?php
+	}
+	
+	//* Callback for Header Information metabox.
+	function color_scheme_markup() {
+		?>
+		<p><?php _e( 'Choose a Color Scheme:', 'samovar' ); ?>
+			<select name="<?php $this->field_name( 'color_scheme' ); ?>">
+				<option value="red"<?php selected( $this->get_field_value( 'color_scheme' ), 'red' ); ?>><?php _e( 'Red', 'samovar' ); ?></option>
+				<option value="green"<?php selected( $this->get_field_value( 'color_scheme' ), 'green' ); ?>><?php _e( 'Green', 'samovar' ); ?></option>
+				<option value="gold"<?php selected( $this->get_field_value( 'color_scheme' ), 'gold' ); ?>><?php _e( 'Gold', 'samovar' ); ?></option>
+				<option value="blue"<?php selected( $this->get_field_value( 'color_scheme' ), 'blue' ); ?>><?php _e( 'Blue', 'samovar' ); ?></option>
+			</select>
+		</p>
+		<p><?php _e( 'Choose a Header Color Scheme:', 'samovar' ); ?>
+			<select name="<?php $this->field_name( 'color_scheme_header' ); ?>">
+				<option value="light"<?php selected( $this->get_field_value( 'color_scheme_header' ), 'light' ); ?>><?php _e( 'Light', 'samovar' ); ?></option>
+				<option value="dark"<?php selected( $this->get_field_value( 'color_scheme_header' ), 'dark' ); ?>><?php _e( 'Dark', 'samovar' ); ?></option>
+			</select>
+		</p>
+		<p><?php _e( 'Choose a Footer Color Scheme:', 'samovar' ); ?>
+			<select name="<?php $this->field_name( 'color_scheme_footer' ); ?>">
+				<option value="light"<?php selected( $this->get_field_value( 'color_scheme_footer' ), 'light' ); ?>><?php _e( 'Light', 'samovar' ); ?></option>
+				<option value="dark"<?php selected( $this->get_field_value( 'color_scheme_footer' ), 'dark' ); ?>><?php _e( 'Dark', 'samovar' ); ?></option>
+			</select>
+		</p>
+		<?php
+	}
+	
+	//* Callback for Header Information metabox.
 	function header_information_markup() {
 		?>
 		<p><?php _e( 'Header Menu Layout:', 'samovar' ); ?>
 			<select name="<?php $this->field_name( 'header_menu' ); ?>">
 				<option value="left"<?php selected( $this->get_field_value( 'header_menu' ), 'left' ); ?>><?php _e( 'Left', 'samovar' ); ?></option>
-				<option value="center"<?php selected( $this->get_field_value( 'header_menu' ), 'center' ); ?>><?php _e( 'Center', 'samovar' ); ?></option>
 				<option value="right"<?php selected( $this->get_field_value( 'header_menu' ), 'right' ); ?>><?php _e( 'Right', 'samovar' ); ?></option>
 			</select>
 		</p>
@@ -178,27 +240,15 @@ class Samovar_Theme_Settings extends Genesis_Admin_Boxes {
 	//* Callback for Share Block Information metabox.
 	function share_information_markup() {
 		?>
-		<p><?php _e( 'Share Block Theme:', 'samovar' ); ?>
-			<select name="<?php $this->field_name( 'share_theme' ); ?>">
-				<option value="light"<?php selected( $this->get_field_value( 'share_theme' ), 'light' ); ?>><?php _e( 'Light', 'samovar' ); ?></option>
-				<option value="dark"<?php selected( $this->get_field_value( 'share_theme' ), 'dark' ); ?>><?php _e( 'Dark', 'samovar' ); ?></option>
-				<option value="counter"<?php selected( $this->get_field_value( 'share_theme' ), 'counter' ); ?>><?php _e( 'Counter', 'samovar' ); ?></option>
-			</select>
-		</p>
-		<p><?php _e( 'Share Block Layout:', 'samovar' ); ?>
-			<select name="<?php $this->field_name( 'share_layout' ); ?>">
-				<option value="button"<?php selected( $this->get_field_value( 'share_layout' ), 'button' ); ?>><?php _e( 'Button', 'samovar' ); ?></option>
-				<option value="link"<?php selected( $this->get_field_value( 'share_layout' ), 'link' ); ?>><?php _e( 'Link', 'samovar' ); ?></option>
-				<option value="icon"<?php selected( $this->get_field_value( 'share_layout' ), 'icon' ); ?>><?php _e( 'Icon', 'samovar' ); ?></option>
-				<option value="none"<?php selected( $this->get_field_value( 'share_layout' ), 'none' ); ?>><?php _e( 'None', 'samovar' ); ?></option>
-			</select>
+		<p>
+			<label for="<?php $this->field_id( 'share_active' ); ?>"><?php _e( 'Show Share block: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_active' ); ?>" id="<?php $this->field_id( 'share_active' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_active' ) ); ?> /></label>
 		</p>
 		<p>
-			<label for="<?php $this->field_id( 'share_vk' ); ?>"><?php _e( 'VKontakte: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_vk' ); ?>" id="<?php $this->field_id( 'share_vk' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_vk' ) ); ?> /></label>
 			<label for="<?php $this->field_id( 'share_facebook' ); ?>"><?php _e( 'Facebook: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_facebook' ); ?>" id="<?php $this->field_id( 'share_facebook' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_facebook' ) ); ?> /></label>
 			<label for="<?php $this->field_id( 'share_twitter' ); ?>"><?php _e( 'Twitter: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_twitter' ); ?>" id="<?php $this->field_id( 'share_twitter' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_twitter' ) ); ?> /></label>
 			<label for="<?php $this->field_id( 'share_gplus' ); ?>"><?php _e( 'Google+: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_gplus' ); ?>" id="<?php $this->field_id( 'share_gplus' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_gplus' ) ); ?> /></label>
-			<label for="<?php $this->field_id( 'share_lj' ); ?>"><?php _e( 'LiveJournal: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_lj' ); ?>" id="<?php $this->field_id( 'share_lj' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_lj' ) ); ?> /></label>
+			<label for="<?php $this->field_id( 'share_vkontakte' ); ?>"><?php _e( 'VKontakte: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_vkontakte' ); ?>" id="<?php $this->field_id( 'share_vkontakte' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_vkontakte' ) ); ?> /></label>
+			<label for="<?php $this->field_id( 'share_pinterest' ); ?>"><?php _e( 'Pinterest: ', 'samovar' ); ?> <input type="checkbox" name="<?php $this->field_name( 'share_pinterest' ); ?>" id="<?php $this->field_id( 'share_pinterest' ); ?>" value="1"<?php checked( $this->get_field_value( 'share_pinterest' ) ); ?> /></label>
 		</p>
 		<?php
 	}

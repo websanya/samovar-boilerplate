@@ -13,11 +13,16 @@ function samovar_quote_post_format_box() {
 	wp_nonce_field( 'samovar_quote_post_format_save', 'samovar_quote_post_format_nonce' );
 	?>
 	<p>
-		<label for="samovar_quote_text"><?php _e( 'Quote Text:', 'samovar' ); ?></label>
+		<b><label for="samovar_quote_text"><?php _e( 'Quote Text', 'samovar' ); ?></label></b>
+	</p>
+	<p>
 		<textarea name="samovar_quote_format[_samovar_quote_text]" class="large-text admin-custom-css" id="samovar_quote_text" cols="78" rows="8"><?php echo esc_textarea( genesis_get_custom_field( '_samovar_quote_text' ) ); ?></textarea>
 	</p>
 	<p>
-		<label for="samovar_quote_author"><?php _e( 'Quote Author:', 'samovar' ); ?> <input type="text" name="samovar_quote_format[_samovar_quote_author]" id="samovar_quote_author" value="<?php echo esc_attr( genesis_get_custom_field( '_samovar_quote_author' ) ); ?>" size="80" /></label>
+		<b><label for="samovar_quote_author"><?php _e( 'Quote Author', 'samovar' ); ?></label></b>
+	</p>
+	<p>
+		<input class="large-text" type="text" name="samovar_quote_format[_samovar_quote_author]" id="samovar_quote_author" value="<?php echo esc_attr( genesis_get_custom_field( '_samovar_quote_author' ) ); ?>" />
 	</p>
 	<?php
 }
@@ -42,7 +47,7 @@ function samovar_quote_post_format_save( $post_id, $post ) {
 }
 
 //* Output quote Shortcode markup.
-add_action( 'genesis_before_entry', 'samovar_quote_post_format_output' );
+add_action( 'genesis_entry_content', 'samovar_quote_post_format_output', 6 );
 function samovar_quote_post_format_output() {
 	if ( get_post_format() != 'quote' ) {
 		return;
@@ -53,12 +58,12 @@ function samovar_quote_post_format_output() {
 	
 	if ( ! empty($quote_text) ) {
 		?>
-		<blockquote>
+		<blockquote class="quote-format-container">
 			<?php
 				echo $quote_text;
 				if ( ! empty($quote_author) ) {
 					?>
-					<cite><?php echo $quote_author; ?></cite>
+					— <cite><?php echo $quote_author; ?></cite>
 					<?php
 				}
 			?>

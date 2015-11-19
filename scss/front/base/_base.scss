@@ -4,341 +4,294 @@
 /* ## Box Sizing
 --------------------------------------------- */
 
+//* Import Compass mixins for box-sizing and word wrapping.
 @import "compass/css3/box-sizing";
 @import "compass/css3/hyphenation";
 
-*,
-input[type="search"] {
+//* Apply some box-sizing.
+*, input[type="search"] {
 	@include box-sizing;
-	@include word-break(break-all);
 }
 
 /* ## Typographical Elements
 --------------------------------------------- */
 
+//* Import Compass mizins for CSS3 stuff.
 @import "compass/css3/transition";
-@import "compass/css3/selection";
-
-* {
-	@include selection(samovar-color("primary-black"), samovar-color("primary-white"));
-}
+@import "compass/css3/transform";
+@import "compass/css3/appearance";
 
 body {
-	
-	@if (not $debug) {
-		background-color: samovar-color("primary-white");
-	}	
-	
 	margin: 0;
 	color: samovar-color("primary-black");
-	font-family: $sans-font-stack;
-	font-weight: 300;
-
 }
 
-a,
-button,
-input:focus,
-input[type="button"],
-input[type="reset"],
-input[type="submit"],
-textarea:focus,
-.button,
-.gallery img {
-	@include single-transition( all, 0.1s, ease-in-out );
+//* Make almost everything transitionable.
+a, button, input:focus, input[type="button"], input[type="reset"], input[type="submit"], textarea:focus, .button, .gallery img {
+	@include single-transition(all, 0.1s, ease-in-out);
 }
 
+//* Default styling for anchor links. Bottom border on hover.
 a {
-	
-	color: samovar-color("primary-highlight");
+	@include samovar-highlight("color");
 	text-decoration: none;
-	
 	&:hover {
 		color: samovar-color("primary-black");
+		border-bottom: 2px solid samovar-color("secondary-black");
 	}
-	
 }
 
+//* Default styling for paragraphs.
 p {
 	padding: 0;
 	margin: 0;
-	@include margin-trailer(2);
+	@include samovar-trailer();
 }
 
-ol,
-ul,
-dl {
+//* Default styling for lists. Nothing to see here. Move along.
+ol, ul, dl {
 	padding: 0;
 	margin: 0;
 }
-
 li {
 	list-style-type: none;
 }
 
-b,
-strong,
-cite {
+//* Other default styling for all the tags.
+b, strong, cite {
 	font-weight: 700;
 }
-
-blockquote,
-cite,
-em,
-i {
+blockquote, cite, em, i {
 	font-style: italic;
 }
-
-blockquote,
-pre {
-	margin: 0;
-	@include rhythm-margins(2);
-}
-
-blockquote {
-	
-	@include rhythm-padding(1);
-	@include samovar-padding(2);
-	border-left: 4px solid samovar-color("primary-highlight");
-	
-	p:last-of-type {
-		margin-bottom: 0;
-	}
-	
-}
-
-pre {
-	@include rhythm-padding();
-	@include samovar-padding();
-	font-size: 0.875rem;
-	@include adjust-leading-to(2);
-	@include word-break(normal);
-	overflow: scroll;
-	background-color: samovar-color("primary-white");
-	color: samovar-color("primary-black");
-}
-
 mark {
   background: #ffff00;
   color: samovar-color("primary-black");
 }
-
 address {
-	@include margin-trailer();
+	@include samovar-trailer();
 }
-
-code,
-big,
-kbd,
-tt,
-small,
-strong,
-sub,
-sup {
+code, big, kbd, tt, small, strong, sub, sup {
 	@include adjust-leading-to(1);
 }
-
 sub, sup {
   font-size: 65%;
 }
-
-code,
-tt {
+code, tt {
 	padding: 3px 5px;
-	background-color: samovar-color("primary-white");
-	color: samovar-color("primary-black");
+	@include samovar-normalbox();
+}
+hr {
+	margin-top: 0;
+	margin-bottom: ($base-line-height) - 2px;
+	@include breakpoint($kyle) {
+		margin-bottom: ($base-line-height * 2) - 2px;
+	}
 }
 
-hr {
-	margin-bottom: ($base-line-height * 2) - 2px;
+//* Some container logic for blockquotes and pre-s.
+blockquote, pre {
+	margin: 0;
+	@include samovar-trailer();
+	@include samovar-all-paddings();
+}
+
+//* Left border gets highlighted for blockquotes.
+blockquote {
+	@include samovar-highlight("border-left");	
+	p:last-of-type {
+		margin-bottom: 0;
+	}
+}
+
+//* Some styles for pre-s.
+pre {
+	overflow: scroll;
+	//* Add background for boxed layout.
+	body.samovar-boxed-layout & {
+		box-shadow: rgba(0, 0, 0, 0.5) 0 1px 3px 0px inset;
+		@include samovar-normalbox();
+	}
+	font-size: 0.65rem;
+	@include breakpoint($kenny) {
+		font-size: 0.875rem;
+	}
+	@include word-break(normal);
 }
 
 /* ## Headings
 --------------------------------------------- */
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+//* Some basic styles for headings.
+h1, h2, h3, h4, h5, h6 {
 	margin: 0;
-	@include margin-trailer();
+	@include samovar-trailer();
 	font-weight: 400;
 	&:last-child {
 		margin-bottom: 0;
 	}
 }
 
+//* Specific styles for different headings.
 h1 {
-	font-size: 1.875rem;
-	@include adjust-leading-to(3);
+	font-size: 1.25rem;
+	@include breakpoint($kenny) {
+		font-size: 1.875rem;
+		@include adjust-leading-to(3);	
+	}
 }
 h2 {
-	font-size: 1.5rem;
+	font-size: 1.125rem;
+	@include breakpoint($kenny) {
+		font-size: 1.575rem;
+		@include adjust-leading-to(3);
+	}
 }
 h3 {
-	font-size: 1.375rem;
+	font-size: 1rem;
+	@include breakpoint($kenny) {
+		font-size: 1.375rem;
+	}
 }
 h4 {
-	font-size: 1.25rem;
+	font-size: 0.875rem;
+	@include breakpoint($kenny) {
+		font-size: 1.25rem;
+	}
 }
 h5 {
-	font-size: 1.125rem;
+	font-size: 0.75rem;
+	@include breakpoint($kenny) {
+		font-size: 1.125rem;
+	}
 }
 h6 {
-	font-size: 1rem;
+	font-size: 0.75rem;
+	@include breakpoint($kenny) {
+		font-size: 1rem;
+	}
 }
 
 /* ## Objects
 --------------------------------------------- */
 
-embed,
-iframe,
-img,
-object,
-video,
-.wp-caption {
+//* Basic responsive styles for different stuff.
+embed, iframe, img, object, video, .wp-caption {
 	max-width: 100%;
 }
-
-iframe,
-img {
+iframe, img {
 	display: block;
 }
-
 iframe {
 	margin: auto;
 }
-
 img {
 	height: auto;
+}
+figure {
+	margin: 0;
+	@include samovar-trailer();
+	img {
+		margin-bottom: 0;
+	}
 }
 
 /* ## Forms
 --------------------------------------------- */
 
-input,
-select,
-textarea {
-	
+//* Basic responsive and container styles for inputs.
+input, select, textarea {
+	margin: 0;
+	@include samovar-trailer();
+	@include apply-side-rhythm-border(all, $width: 3px, $lines: 1);
 	display: block;
 	width: 100%;
-	margin: 0;
-	@include margin-trailer();
-	@include apply-side-rhythm-border(all, $lines: 1);
-	@include samovar-padding(1);
 	outline: none;
-	font-family: $sans-font-stack;
 	font-size: 1rem;
 	@include adjust-leading-to(2);
-	font-weight: 300;
-	background-color: samovar-color("secondary-white");
-	color: samovar-color("primary-black");
-	
+	@include samovar-normalbox();
 	&:focus {
 		outline: none;
 	}
-	
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-	
+//* Some weird hacks you need for vertical rhythm.
+input[type="text"], input[type="email"], input[type="password"] {
 	&:first-line {
 		display: inline-block;
 	}
-	
 }
-
-input[type="checkbox"],
-input[type="image"],
-input[type="radio"] {
+input[type="checkbox"], input[type="image"], input[type="radio"] {
 	width: auto;
 }
-
-::-moz-placeholder {
-	color: samovar-color("primary-black");
-	font-weight: normal;
-	opacity: 1;
-}
-
-::-webkit-input-placeholder {
-	color: samovar-color("primary-black");
-	font-weight: normal;
-}
-
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"],
-.button {
-	
-	display: block;
-	width: 100%;
-	margin: 0;
-	@include margin-trailer();
-	@include rhythm-padding();
-	@include samovar-padding(2);
-	border: none;
-	font-size: 1rem;
-	@include adjust-leading-to(2);
-	font-weight: 300;
-	background-color: samovar-color("primary-black");
-	color: samovar-color("primary-white");
-	cursor: pointer;
-	
-	&:hover {
-		background-color: samovar-color("primary-highlight");
-		color: samovar-color("primary-white");
-	}
-	
-}
-
-.button {
-	display: inline-block;
-}
-
 input[type=search] {
 	margin-bottom: 0;
   -webkit-appearance: textfield;
-  @include box-sizing;
 }
-
 input[type=search]::-webkit-search-cancel-button,
 input[type=search]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
-
 input[type=search]::-webkit-search-cancel-button,
 input[type=search]::-webkit-search-results-button {
 	display: none;
 }
 
+//* Search placeholder styles.
+::-moz-placeholder {
+	color: samovar-color("primary-black");
+	font-weight: 300;
+	opacity: 1;
+}
+::-webkit-input-placeholder {
+	color: samovar-color("primary-black");
+	font-weight: 300;
+	opacity: 1;
+}
+
+//* Basic responsive and container styles for buttons.
+button, input[type="button"], input[type="reset"], input[type="submit"], .button {
+	margin: 0;
+	@include samovar-trailer();
+	@include rhythm-padding();
+	@include samovar-padding(2);
+	display: block;
+	width: 100%;
+	border: none;
+	font-size: 1rem;
+	@include adjust-leading-to(2);
+	font-family: inherit;
+	font-weight: 400;
+	cursor: pointer;
+	@include samovar-normalbox("dark");
+	&:hover {
+		@include samovar-highlight("bg");
+	}
+}
+.button {
+	display: inline-block;
+}
+
 /* ## Tables
 --------------------------------------------- */
 
+//* Basic responsive and container styles for tables and cells.
 table {
-	@include margin-trailer(2);
+	@include samovar-trailer();
 	table-layout: fixed;
 	width: 100%;
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
 tr {
 	border-bottom: 1px solid samovar-color("primary-black");
 }
-
-td,
-th {
+td, th {
 	padding-bottom: $base-line-height - 1px;
 	@include padding-leader();
-	@include samovar-padding(1);
+	@include samovar-padding();
 	text-align: left;
 }
-
 th {
 	font-weight: 700;
 }

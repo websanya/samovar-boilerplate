@@ -3,12 +3,14 @@
 
 @import "compass/typography/vertical_rhythm";
 
-$debug: false !global;
-$base-font-size: 18px !global;
+//* Some base sizes and debug info.
+$debug: true !global;
+$base-font-size: 20px !global;
 $base-line-height: 14px !global;
 $default-rhythm-border-width: 1px !global;
 $rhythm-unit: "px" !global;
 
+//* Some base blah blah blah.
 html {
 	-ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -16,24 +18,30 @@ html {
 	@include adjust-leading-to(2);
 }
 body {
+	font-size: 0.75rem;
+	@include breakpoint($kenny) {
+		font-size: 1rem;
+	}
+	//* If debug than draw some gradients.
+	background-color: samovar-color("primary-white");
 	@if ($debug) {
-		background-image: linear-gradient(to top, rgba(0, 0, 0, 0.2) 5%, rgba(0, 0, 0, 0.4) 5%) !important;
+		background-image: linear-gradient(to top, rgba(0, 0, 0, 0.1) 5%, rgba(255, 255, 255, 1) 5%) !important;
 		-webkit-background-size: 100% $base-line-height;
 		background-size: 100% $base-line-height;
 		background-position: left top;
+		background-attachment: scroll !important;
 	}
 }
 
-/* ## Font Stack
+/* ## Font Stacks
 --------------------------------------------- */
 
+//* Define some font stacks.
 $serif-font-stack: Georgia, serif !global;
-$sans-font-stack: "Proxima Nova", "Helvetica Neue", Helvetica, Verdana, sans-serif !global;
+$sans-font-stack: Verdana, sans-serif !global;
 
-/* ## Some mixins
---------------------------------------------- */
-
-@mixin samovar-padding($counter: 1) {
-	padding-left: $base-line-height * $counter;
-	padding-right: $base-line-height * $counter;
+//* Apply sans stack.
+body, input, select, textarea {
+	font-family: $sans-font-stack;
+	font-weight: 400;
 }

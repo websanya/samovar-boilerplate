@@ -1,0 +1,39 @@
+/* ## Meta for Content
+--------------------------------------------- */
+
+//* Placeholders for different meta containers.
+%meta-container {
+	//* Add background and shadow for boxed layout.
+	body.samovar-boxed-layout & {
+		@include samovar-smallbox();
+		@include samovar-normalbox();
+		@include samovar-trailer();		
+	}
+	@include samovar-all-paddings();
+	p:last-child {
+		margin-bottom: 0;
+	}
+}
+%meta-mobile {
+	display: none;
+	@include breakpoint($kyle) {
+		display: block;
+	}
+}
+
+//* Applying these placeholders and some stuff.
+.archive-description,
+.author-box,
+.breadcrumb {
+	@extend %meta-container;
+}
+.author-box {
+	@extend %meta-mobile;
+}
+.archive-description {
+	font-style: italic;
+}
+
+@import "meta/meta-pagination";
+@import "meta/meta-author-box";
+@import "meta/meta-comments";
